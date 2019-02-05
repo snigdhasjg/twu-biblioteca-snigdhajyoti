@@ -4,6 +4,6 @@ package com.biblioteca;
 public class Main {
     public static void main(String[] args){
         IO aOutPutStream = new ConsoleIO(System.out);
-        new App(aOutPutStream).welcome();
+        new App(aOutPutStream).start();
     }
 }
