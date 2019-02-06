@@ -1,6 +1,7 @@
 package com.biblioteca;
 
 import org.junit.jupiter.api.Test;
+
 import static org.mockito.Mockito.*;
 
 import java.io.PrintStream;
@@ -11,7 +12,7 @@ class ConsoleIOTest {
     void expectsDisplayToPrintMessageHello() {
         PrintStream mockOut = mock(PrintStream.class);
         Scanner aScanner = new Scanner(System.in);
-        ConsoleIO io = new ConsoleIO(mockOut,aScanner);
+        ConsoleIO io = new ConsoleIO(mockOut, aScanner);
 
         io.displayWithNewLine("Hello");
 

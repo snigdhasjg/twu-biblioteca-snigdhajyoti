@@ -1,16 +1,17 @@
 package com.biblioteca;
 
-import java.util.Set;
+import java.util.List;
+
 // Represents a place which have all books in in
 class Library {
 
-    private Set<Book> listOfBooks;
+    private List<Book> listOfBooks;
 
-    Library(Set<Book> listOfBooks) {
+    Library(List<Book> listOfBooks) {
         this.listOfBooks = listOfBooks;
     }
 
-    Set<Book> listOfAllBooks(){
+    List listOfAllBooks() {
         return listOfBooks;
     }
 }
