@@ -1,10 +1,6 @@
 package com.biblioteca;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import static com.biblioteca.Book.book;
+import java.util.List;
 
 // Represents the main application
 class App {
@@ -13,30 +9,33 @@ class App {
     private final IO aIOStream;
     private final Library aLibrary;
 
-    App(IO aIOStream) {
+    App(IO aIOStream, List<Book> allBooks) {
         this.aIOStream = aIOStream;
-        this.aLibrary = initializeTheLibrary();
+        this.aLibrary = new Library(allBooks);
     }
 
     void start() {
-        this.welcome();
-        this.options();
+        welcome();
+        options();
     }
 
     private void options() {
-        while(true){
+        while (true) {
             menu();
-            switch (aIOStream.readInputAsString()){
-                case "1": displayAllBookList();
-                break;
-                case "quit": return; //System.exit(0);
-                default: aIOStream.displayWithNewLine("Invalid Option");
+            switch (aIOStream.readInputAsString()) {
+                case "1":
+                    displayAllBookList();
+                    break;
+                case "quit":
+                    return; //System.exit(0);
+                default:
+                    aIOStream.displayWithNewLine("Select a valid option!");
                     break;
             }
         }
     }
 
-    private void menu(){
+    private void menu() {
         aIOStream.displayWithNewLine(".......................................................");
         aIOStream.displayWithNewLine("1. List All Books");
         aIOStream.display("Enter your choice: ");
@@ -51,7 +50,7 @@ class App {
         aIOStream.displayWithNewLine(String.format("%-4s %-19s %-25s %s", "SlNo", "Book Name", "Author", "Year"));
         aIOStream.displayWithNewLine("-------------------------------------------------------");
         int count = 1;
-        Set<Book> allBooks = aLibrary.listOfAllBooks();
+        List<Book> allBooks = aLibrary.listOfAllBooks();
         if (allBooks.size() == 0) {
             aIOStream.displayWithNewLine("No books in the Library right now");
         }
@@ -59,13 +58,5 @@ class App {
             String bookDetails = String.format(BOOK_DETAILS_FORMAT, "" + count++, eachBook.title(), eachBook.author(), eachBook.year());
             aIOStream.displayWithNewLine(bookDetails);
         }
-    }
-
-    private Library initializeTheLibrary() {
-        final String book1_name = "2 States";
-        Book book1 = book(book1_name, "Chetan Bhagat", 2004);
-        final String book2_name = "Gitanjali";
-        Book book2 = book(book2_name, "R N Tagore", 1910);
-        return new Library(new LinkedHashSet<>(Arrays.asList(book1, book2)));
     }
 }
