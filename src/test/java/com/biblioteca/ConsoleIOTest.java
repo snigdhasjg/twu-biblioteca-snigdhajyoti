@@ -4,14 +4,16 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 
 import java.io.PrintStream;
+import java.util.Scanner;
 
 class ConsoleIOTest {
     @Test
     void expectsDisplayToPrintMessageHello() {
         PrintStream mockOut = mock(PrintStream.class);
-        ConsoleIO io = new ConsoleIO(mockOut);
+        Scanner aScanner = new Scanner(System.in);
+        ConsoleIO io = new ConsoleIO(mockOut,aScanner);
 
-        io.display("Hello");
+        io.displayWithNewLine("Hello");
 
         verify(mockOut).println("Hello");
     }
