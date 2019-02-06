@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static com.biblioteca.Book.book;
 import static org.mockito.Mockito.*;
@@ -59,11 +58,11 @@ class AppTest {
         verify(mockIO).displayWithNewLine("Select a valid option!");
     }
 
-    private List<Book> initializeTheLibrary() {
+    private Library initializeTheLibrary() {
         final String book1_name = "2 States";
         Book book1 = book(book1_name, "Chetan Bhagat", 2004);
         final String book2_name = "Gitanjali";
         Book book2 = book(book2_name, "R N Tagore", 1910);
-        return Arrays.asList(book1, book2);
+        return new Library(Arrays.asList(book1, book2));
     }
 }

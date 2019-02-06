@@ -9,9 +9,9 @@ class App {
     private final IO aIOStream;
     private final Library aLibrary;
 
-    App(IO aIOStream, List<Book> allBooks) {
+    App(IO aIOStream, Library aLibrary) {
         this.aIOStream = aIOStream;
-        this.aLibrary = new Library(allBooks);
+        this.aLibrary = aLibrary;
     }
 
     void start() {
