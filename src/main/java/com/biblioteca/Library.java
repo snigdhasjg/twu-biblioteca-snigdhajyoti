@@ -1,20 +1,16 @@
 package com.biblioteca;
 
-import java.util.List;
-
+import java.util.Set;
+// Represents a place which have all books in in
 class Library {
 
-    private List<Book> listOfBooks;
+    private Set<Book> listOfBooks;
 
-    Library(List<Book> listOfBooks) {
+    Library(Set<Book> listOfBooks) {
         this.listOfBooks = listOfBooks;
     }
 
-    String returnAllBooksName(){
-        String allBooksName = "";
-        for(Book eachBook : listOfBooks){
-            allBooksName += eachBook.toString() + '\n';
-        }
-        return allBooksName;
+    Set<Book> listOfAllBooks(){
+        return listOfBooks;
     }
 }

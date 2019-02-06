@@ -3,6 +3,8 @@ package com.biblioteca;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.biblioteca.Book.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,16 +13,20 @@ class LibraryTest {
     @Test
     void expectsADisplayOfAListOfBooksPresentsInLibrary() {
         final String book1_name = "Head First JAVA";
-        Book book1 = book(book1_name);
-        final String book2_name = "Extreme Programming";
-        Book book2 = book(book2_name);
-        Library aLibrary = new Library(Arrays.asList(book1,book2));
+        final String book1Author = "someone";
+        Book book1 = book(book1_name, book1Author,2018);
 
-        String expectedAllBookName = book1_name + '\n' + book2_name + '\n';
+        final String book2_name = "Gitanjali";
+        final String book2Author = "R N Tagore";
+        Book book2 = book(book2_name, book2Author,1910);
 
-        String allBookName = aLibrary.returnAllBooksName();
+        Set<Book> expectedBookList = new HashSet<>(Arrays.asList(book1,book2));
 
-        assertEquals(expectedAllBookName,allBookName);
+        Library aLibrary = new Library(expectedBookList);
+
+        Set<Book> allBooks = aLibrary.listOfAllBooks();
+
+        assertEquals(expectedBookList,allBooks);
     }
 
 }

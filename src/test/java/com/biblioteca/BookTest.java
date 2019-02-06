@@ -9,8 +9,12 @@ class BookTest {
     @Test
     void expectsBookNameToBeSame(){
         String bookName = "Head First JAVA";
-        Book aBook = book(bookName);
+        String author = "Someone";
+        int yearOfPublication = 2018;
+        Book aBook = book(bookName, author, yearOfPublication);
 
-        assertEquals(bookName,aBook.toString());
+        assertEquals(bookName,aBook.title());
+        assertEquals(author,aBook.author());
+        assertEquals(""+yearOfPublication,aBook.year());
     }
 }
