@@ -20,7 +20,7 @@ public class ConsoleIO implements IO {
 
     @Override
     public String readInputAsString() {
-        return aScanner.next();
+        return aScanner.nextLine();
     }
 
     @Override

@@ -16,7 +16,7 @@ class Library {
         return listOfAvailableBooks;
     }
 
-    void checkout(int bookNumber) {
+    void checkout(int bookNumber) throws InvalidBookIndexException{
         int bookIndex = bookNumber - 1;
         try {
             listOfAvailableBooks.remove(bookIndex);
@@ -25,7 +25,22 @@ class Library {
         }
     }
 
-    void checkout(String bookName) {
+    void checkout(String bookName) throws InvalidBookNameException{
+        Book searchedBook = searchBook(bookName);
+        listOfAvailableBooks.remove(searchedBook);
+    }
 
+    private Book searchBook(String bookName) throws InvalidBookNameException{
+        for(Book eachBook : listOfAvailableBooks){
+            String eachBookTitle = eachBook.title();
+            if(eachBookTitle.equalsIgnoreCase(bookName)){
+                return eachBook;
+            }
+        }
+        throw new InvalidBookNameException();
+    }
+
+    boolean isEmpty() {
+        return listOfAvailableBooks.size() == 0;
     }
 }

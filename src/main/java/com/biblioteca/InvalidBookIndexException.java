@@ -1,7 +1,7 @@
 package com.biblioteca;
 
-public class InvalidBookIndexException extends RuntimeException {
-    InvalidBookIndexException(){
-        super("Book not found");
+public class InvalidBookIndexException extends Exception {
+    public InvalidBookIndexException(){
+        super("Book not found. Wrong index");
     }
 }
