@@ -37,37 +37,9 @@ class App {
         }
     }
 
-    private void checkout(){
-        if(aLibrary.isEmpty()) {
-            aIOStream.displayWithNewLine("Sorry! No book in Library");
-            return;
-        }
-        aIOStream.display("How you want to search:\nPress 1 to find book from list\nPress 2 to find book by its name\nYour choice: ");
-        String checkoutOption = aIOStream.readInputAsString();
-        if(checkoutOption.equals("1")) {
-            displayAllBookList();
-            aIOStream.display("Enter serial number: ");
-            int serialNo = aIOStream.readInputAsNumber();
-            try {
-                aLibrary.checkout(serialNo);
-                aIOStream.displayWithNewLine("Thank you! Enjoy the book");
-            }catch (InvalidBookIndexException exception){
-                aIOStream.displayWithNewLine(exception.getMessage());
-            }
-            return;
-        }
-        if(checkoutOption.equals("2")) {
-            aIOStream.display("Enter book name: ");
-            String bookName = aIOStream.readInputAsString();
-            try {
-                aLibrary.checkout(bookName);
-                aIOStream.displayWithNewLine("Thank you! Enjoy the book");
-            } catch (InvalidBookNameException exception) {
-                aIOStream.displayWithNewLine(exception.getMessage());
-            }
-            return;
-        }
-        aIOStream.displayWithNewLine("Invalid Option");
+    private void welcome() {
+        String WELCOME_MESSAGE = "Welcome to Biblioteca";
+        aIOStream.displayWithNewLine(WELCOME_MESSAGE);
     }
 
     private void menu() {
@@ -76,11 +48,6 @@ class App {
         aIOStream.displayWithNewLine("2. Checkout");
         aIOStream.displayWithNewLine("...................................................................");
         aIOStream.display("Enter your choice: ");
-    }
-
-    private void welcome() {
-        String WELCOME_MESSAGE = "Welcome to Biblioteca";
-        aIOStream.displayWithNewLine(WELCOME_MESSAGE);
     }
 
     private void displayAllBookList() {
@@ -99,5 +66,22 @@ class App {
             String bookDetails = String.format(BOOK_DETAILS_FORMAT, "" + count++ + ".", eachBook.title(), eachBook.author(), eachBook.year());
             aIOStream.displayWithNewLine(bookDetails);
         }
+    }
+
+    private void checkout(){
+        if(aLibrary.isEmpty()) {
+            aIOStream.displayWithNewLine("Sorry! No book in Library");
+            return;
+        }
+        aIOStream.display("Enter book name: ");
+        String bookName = aIOStream.readInputAsString();
+        try {
+            aLibrary.checkout(bookName);
+            aIOStream.displayWithNewLine("Thank you! Enjoy the book");
+            return;
+        } catch (InvalidBookNameException exception) {
+            aIOStream.displayWithNewLine(exception.getMessage());
+        }
+        aIOStream.displayWithNewLine("Invalid Option");
     }
 }
