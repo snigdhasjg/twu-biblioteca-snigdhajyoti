@@ -4,8 +4,7 @@ import java.util.List;
 
 // Represents the main application
 class App {
-
-    private static final String BOOK_DETAILS_FORMAT = "%-4s %-19s %-25s %s";
+    final static String BOOK_DETAILS_FORMAT = "%-20s %-20s %-20s %-20s";
     private final IO aIOStream;
     private final Library aLibrary;
 
@@ -26,8 +25,12 @@ class App {
                 case "1":
                     displayAllBookList();
                     break;
-                case "quit":
-                    return; //System.exit(0);
+                case "2":
+                    displayAllBookList();
+                    aLibrary.checkout(aIOStream.readInputAsNumber());
+                    break;
+                case "quit": // System.exit(0);
+                    return;
                 default:
                     aIOStream.displayWithNewLine("Select a valid option!");
                     break;
@@ -36,8 +39,10 @@ class App {
     }
 
     private void menu() {
-        aIOStream.displayWithNewLine(".......................................................");
+        aIOStream.displayWithNewLine("...............................MENU................................");
         aIOStream.displayWithNewLine("1. List All Books");
+        aIOStream.displayWithNewLine("2. Checkout");
+        aIOStream.displayWithNewLine("...................................................................");
         aIOStream.display("Enter your choice: ");
     }
 
@@ -47,15 +52,15 @@ class App {
     }
 
     private void displayAllBookList() {
-        aIOStream.displayWithNewLine(String.format("%-4s %-19s %-25s %s", "SlNo", "Book Name", "Author", "Year"));
-        aIOStream.displayWithNewLine("-------------------------------------------------------");
+        aIOStream.displayWithNewLine(String.format(BOOK_DETAILS_FORMAT, "SlNo", "Book Name", "Author", "Year"));
+        aIOStream.displayWithNewLine("-------------------------------------------------------------------");
         int count = 1;
         List<Book> allBooks = aLibrary.listOfAllBooks();
         if (allBooks.size() == 0) {
             aIOStream.displayWithNewLine("No books in the Library right now");
         }
         for (Book eachBook : allBooks) {
-            String bookDetails = String.format(BOOK_DETAILS_FORMAT, "" + count++, eachBook.title(), eachBook.author(), eachBook.year());
+            String bookDetails = String.format(BOOK_DETAILS_FORMAT, "" + count++ + ".", eachBook.title(), eachBook.author(), eachBook.year());
             aIOStream.displayWithNewLine(bookDetails);
         }
     }
