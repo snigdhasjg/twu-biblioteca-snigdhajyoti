@@ -26,16 +26,48 @@ class App {
                     displayAllBookList();
                     break;
                 case "2":
-                    displayAllBookList();
-                    aLibrary.checkout(aIOStream.readInputAsNumber());
+                    checkout();
                     break;
-                case "quit": // System.exit(0);
+                case "quit":
                     return;
                 default:
                     aIOStream.displayWithNewLine("Select a valid option!");
                     break;
             }
         }
+    }
+
+    private void checkout(){
+        if(aLibrary.isEmpty()) {
+            aIOStream.displayWithNewLine("Sorry! No book in Library");
+            return;
+        }
+        aIOStream.display("How you want to search:\nPress 1 to find book from list\nPress 2 to find book by its name\nYour choice: ");
+        String checkoutOption = aIOStream.readInputAsString();
+        if(checkoutOption.equals("1")) {
+            displayAllBookList();
+            aIOStream.display("Enter serial number: ");
+            int serialNo = aIOStream.readInputAsNumber();
+            try {
+                aLibrary.checkout(serialNo);
+                aIOStream.displayWithNewLine("Thank you! Enjoy the book");
+            }catch (InvalidBookIndexException exception){
+                aIOStream.displayWithNewLine(exception.getMessage());
+            }
+            return;
+        }
+        if(checkoutOption.equals("2")) {
+            aIOStream.display("Enter book name: ");
+            String bookName = aIOStream.readInputAsString();
+            try {
+                aLibrary.checkout(bookName);
+                aIOStream.displayWithNewLine("Thank you! Enjoy the book");
+            } catch (InvalidBookNameException exception) {
+                aIOStream.displayWithNewLine(exception.getMessage());
+            }
+            return;
+        }
+        aIOStream.displayWithNewLine("Invalid Option");
     }
 
     private void menu() {
@@ -52,6 +84,10 @@ class App {
     }
 
     private void displayAllBookList() {
+        if(aLibrary.isEmpty()) {
+            aIOStream.displayWithNewLine("Sorry! No book in Library");
+            return;
+        }
         aIOStream.displayWithNewLine(String.format(BOOK_DETAILS_FORMAT, "SlNo", "Book Name", "Author", "Year"));
         aIOStream.displayWithNewLine("-------------------------------------------------------------------");
         int count = 1;

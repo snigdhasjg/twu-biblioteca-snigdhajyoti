@@ -42,9 +42,11 @@ class AppTest {
         bibliotecaApp.start();
 
         final int wantedNumberOfInvocations = 2;
-        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("...............................MENU................................");
+        verify(mockIO, times(wantedNumberOfInvocations))
+                .displayWithNewLine("...............................MENU................................");
         verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("1. List All Books");
-        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("...................................................................");
+        verify(mockIO, times(wantedNumberOfInvocations))
+                .displayWithNewLine("...................................................................");
         verify(mockIO, times(wantedNumberOfInvocations)).display("Enter your choice: ");
     }
 
@@ -68,9 +70,12 @@ class AppTest {
         when(mockIO.readInputAsNumber()).thenReturn(1);
         bibliotecaApp.start();
 
-        verify(mockIO, times(1)).displayWithNewLine(String.format(App.BOOK_DETAILS_FORMAT, "1.", "2 States", "Chetan Bhagat", "2004"));
-        verify(mockIO, times(1)).displayWithNewLine(String.format(App.BOOK_DETAILS_FORMAT, "2.", "Gitanjali", "R N Tagore", "1910"));
-        verify(mockIO, times(1)).displayWithNewLine(String.format(App.BOOK_DETAILS_FORMAT, "1.", "Gitanjali", "R N Tagore", "1910"));
+        verify(mockIO, times(1))
+                .displayWithNewLine(String.format(App.BOOK_DETAILS_FORMAT, "1.", "2 States", "Chetan Bhagat", "2004"));
+        verify(mockIO, times(1))
+                .displayWithNewLine(String.format(App.BOOK_DETAILS_FORMAT, "2.", "Gitanjali", "R N Tagore", "1910"));
+        verify(mockIO, times(1))
+                .displayWithNewLine(String.format(App.BOOK_DETAILS_FORMAT, "1.", "Gitanjali", "R N Tagore", "1910"));
     }
 
     private Library initializeTheLibrary() {

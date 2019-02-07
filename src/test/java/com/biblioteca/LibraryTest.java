@@ -7,8 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.biblioteca.Book.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LibraryTest {
     @Test
@@ -31,7 +30,7 @@ class LibraryTest {
     }
 
     @Test
-    void expectsToNumberOfBooks1When1BookHasCheckedOut() {
+    void expectsToNumberOfBooks1When1BookHasCheckedOut() throws InvalidBookIndexException{
         final String book1_name = "Head First JAVA";
         final String book1Author = "someone";
         Book book1 = book(book1_name, book1Author, 2018);
@@ -50,7 +49,7 @@ class LibraryTest {
     }
 
     @Test
-    void expectsBookNo1CheckedOut() {
+    void expectsBookNo1CheckedOut() throws InvalidBookIndexException{
         final String book1_name = "Head First JAVA";
         final String book1Author = "someone";
         Book book1 = book(book1_name, book1Author, 2018);
@@ -83,6 +82,22 @@ class LibraryTest {
         Library aLibrary = new Library(initialBooks);
 
         assertThrows(InvalidBookIndexException.class, () -> aLibrary.checkout(3));
+    }
+
+    @Test
+    void expectsExceptionWhenThereIsNoBookInGivenName(){
+        final String book1_name = "Head First JAVA";
+        final String book1Author = "someone";
+        Book book1 = book(book1_name, book1Author, 2018);
+
+        final String book2_name = "Gitanjali";
+        final String book2Author = "R N Tagore";
+        Book book2 = book(book2_name, book2Author, 1910);
+
+        List<Book> initialBooks = new ArrayList<>(Arrays.asList(book1, book2));
+        Library aLibrary = new Library(initialBooks);
+
+        assertDoesNotThrow(() -> aLibrary.checkout("gitanjali"));
     }
 
 }
