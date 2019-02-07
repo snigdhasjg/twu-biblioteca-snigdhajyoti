@@ -30,7 +30,7 @@ class LibraryTest {
     }
 
     @Test
-    void expectsToNumberOfBooks1When1BookHasCheckedOut() throws InvalidBookIndexException{
+    void expectsToNumberOfBooks1When1BookHasCheckedOut() throws InvalidBookNameException{
         final String book1_name = "Head First JAVA";
         final String book1Author = "someone";
         Book book1 = book(book1_name, book1Author, 2018);
@@ -42,14 +42,14 @@ class LibraryTest {
         List<Book> initialBooks = new ArrayList<>(Arrays.asList(book1, book2));
         Library aLibrary = new Library(initialBooks);
 
-        aLibrary.checkout(1);
+        aLibrary.checkout("gitanjali");
         List<Book> allAvailableBooks = aLibrary.listOfAllBooks();
 
         assertEquals(1, allAvailableBooks.size());
     }
 
     @Test
-    void expectsBookNo1CheckedOut() throws InvalidBookIndexException{
+    void expectsBookNo1CheckedOut() throws InvalidBookNameException{
         final String book1_name = "Head First JAVA";
         final String book1Author = "someone";
         Book book1 = book(book1_name, book1Author, 2018);
@@ -61,7 +61,7 @@ class LibraryTest {
         List<Book> initialBooks = new ArrayList<>(Arrays.asList(book1, book2));
         Library aLibrary = new Library(initialBooks);
 
-        aLibrary.checkout(1);
+        aLibrary.checkout("Head First JAVA");
         List<Book> allAvailableBooks = aLibrary.listOfAllBooks();
         initialBooks.remove(book1);
 
@@ -81,11 +81,11 @@ class LibraryTest {
         List<Book> initialBooks = new ArrayList<>(Arrays.asList(book1, book2));
         Library aLibrary = new Library(initialBooks);
 
-        assertThrows(InvalidBookIndexException.class, () -> aLibrary.checkout(3));
+        assertThrows(InvalidBookNameException.class, () -> aLibrary.checkout("some"));
     }
 
     @Test
-    void expectsExceptionWhenThereIsNoBookInGivenName(){
+    void expectsNoExceptionWhenThereIsNoBookInGivenName(){
         final String book1_name = "Head First JAVA";
         final String book1Author = "someone";
         Book book1 = book(book1_name, book1Author, 2018);

@@ -16,15 +16,6 @@ class Library {
         return listOfAvailableBooks;
     }
 
-    void checkout(int bookNumber) throws InvalidBookIndexException{
-        int bookIndex = bookNumber - 1;
-        try {
-            listOfAvailableBooks.remove(bookIndex);
-        } catch (IndexOutOfBoundsException ignore) {
-            throw new InvalidBookIndexException();
-        }
-    }
-
     void checkout(String bookName) throws InvalidBookNameException{
         Book searchedBook = searchBook(bookName);
         listOfAvailableBooks.remove(searchedBook);

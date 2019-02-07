@@ -66,16 +66,14 @@ class AppTest {
         IO mockIO = mock(IO.class);
         App bibliotecaApp = new App(mockIO, initializeTheLibrary());
 
-        Mockito.when(mockIO.readInputAsString()).thenReturn("2", "1", "quit");
+        Mockito.when(mockIO.readInputAsString()).thenReturn("1","2", "gitanjali","1", "quit");
         when(mockIO.readInputAsNumber()).thenReturn(1);
         bibliotecaApp.start();
 
-        verify(mockIO, times(1))
+        verify(mockIO, times(2))
                 .displayWithNewLine(String.format(App.BOOK_DETAILS_FORMAT, "1.", "2 States", "Chetan Bhagat", "2004"));
         verify(mockIO, times(1))
                 .displayWithNewLine(String.format(App.BOOK_DETAILS_FORMAT, "2.", "Gitanjali", "R N Tagore", "1910"));
-        verify(mockIO, times(1))
-                .displayWithNewLine(String.format(App.BOOK_DETAILS_FORMAT, "1.", "Gitanjali", "R N Tagore", "1910"));
     }
 
     private Library initializeTheLibrary() {
