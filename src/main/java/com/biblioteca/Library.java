@@ -24,8 +24,8 @@ class Library {
         listOfCheckedOutBooks.add(searchedBook);
     }
 
-    void checkIn(String bookName) throws InvalidBookNameException{
-        Book searchedBook = searchBook(bookName,listOfCheckedOutBooks);
+    void checkIn(String bookName) throws InvalidBookNameException {
+        Book searchedBook = searchBook(bookName, listOfCheckedOutBooks);
         listOfCheckedOutBooks.remove(searchedBook);
         listOfAvailableBooks.add(searchedBook);
     }
