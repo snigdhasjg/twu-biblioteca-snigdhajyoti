@@ -8,13 +8,13 @@ import static com.biblioteca.Book.book;
 // Represents Library Management Engine
 public class Main {
     public static void main(String[] args) {
-        final String book1_name = "2 States";
-        Book book1 = book(book1_name, "Chetan Bhagat", 2004);
-        final String book2_name = "Gitanjali";
-        Book book2 = book(book2_name, "R N Tagore", 1910);
-        Library aLibrary = new Library(Arrays.asList(book1, book2));
+        Book book1 = book("2 States", "Chetan Bhagat", 2004);
+        Book book2 = book("Gitanjali", "R N Tagore", 1910);
 
-        IO aOutPutStream = new ConsoleIO(System.out, new Scanner(System.in));
-        new App(aOutPutStream, aLibrary).start();
+        Library aLibrary = new Library(Arrays.asList(book1, book2));
+        IO anIOStream = new ConsoleIO(System.out, new Scanner(System.in));
+        Menu aMenu = new Menu(anIOStream, aLibrary);
+
+        new App(anIOStream, aMenu).start();
     }
 }
