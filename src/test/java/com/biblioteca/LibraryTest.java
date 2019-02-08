@@ -12,15 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class LibraryTest {
     @Test
     void expectsADisplayOfAListOfBooksPresentsInLibrary() {
-        final String book1_name = "Head First JAVA";
-        final String book1Author = "someone";
-        Book book1 = book(book1_name, book1Author, 2018);
-
-        final String book2_name = "Gitanjali";
-        final String book2Author = "R N Tagore";
-        Book book2 = book(book2_name, book2Author, 1910);
-
-        List<Book> expectedBookList = Arrays.asList(book1, book2);
+        List<Book> expectedBookList = listOf2Books();
 
         Library aLibrary = new Library(expectedBookList);
 
@@ -30,26 +22,18 @@ class LibraryTest {
     }
 
     @Test
-    void expectsToNumberOfBooks1When1BookHasCheckedOut() throws InvalidBookNameException{
-        final String book1_name = "Head First JAVA";
-        final String book1Author = "someone";
-        Book book1 = book(book1_name, book1Author, 2018);
-
-        final String book2_name = "Gitanjali";
-        final String book2Author = "R N Tagore";
-        Book book2 = book(book2_name, book2Author, 1910);
-
-        List<Book> initialBooks = new ArrayList<>(Arrays.asList(book1, book2));
+    void expectsToNumberOfBooks1When1BookHasCheckedOut() throws InvalidBookNameException {
+        List<Book> initialBooks = listOf2Books();
         Library aLibrary = new Library(initialBooks);
 
-        aLibrary.checkout("gitanjali");
+        aLibrary.checkOut("gitanjali");
         List<Book> allAvailableBooks = aLibrary.listOfAllBooks();
 
         assertEquals(1, allAvailableBooks.size());
     }
 
     @Test
-    void expectsBookNo1CheckedOut() throws InvalidBookNameException{
+    void expectsBookNo1CheckedOut() throws InvalidBookNameException {
         final String book1_name = "Head First JAVA";
         final String book1Author = "someone";
         Book book1 = book(book1_name, book1Author, 2018);
@@ -61,7 +45,7 @@ class LibraryTest {
         List<Book> initialBooks = new ArrayList<>(Arrays.asList(book1, book2));
         Library aLibrary = new Library(initialBooks);
 
-        aLibrary.checkout("Head First JAVA");
+        aLibrary.checkOut("Head First JAVA");
         List<Book> allAvailableBooks = aLibrary.listOfAllBooks();
         initialBooks.remove(book1);
 
@@ -70,22 +54,30 @@ class LibraryTest {
 
     @Test
     void expectsExceptionWhenThereIsNoBookInGivenIndex() {
-        final String book1_name = "Head First JAVA";
-        final String book1Author = "someone";
-        Book book1 = book(book1_name, book1Author, 2018);
+        List<Book> initialBook = listOf2Books();
+        Library aLibrary = new Library(initialBook);
 
-        final String book2_name = "Gitanjali";
-        final String book2Author = "R N Tagore";
-        Book book2 = book(book2_name, book2Author, 1910);
-
-        List<Book> initialBooks = new ArrayList<>(Arrays.asList(book1, book2));
-        Library aLibrary = new Library(initialBooks);
-
-        assertThrows(InvalidBookNameException.class, () -> aLibrary.checkout("some"));
+        assertThrows(InvalidBookNameException.class, () -> aLibrary.checkOut("some"));
     }
 
     @Test
-    void expectsNoExceptionWhenThereIsNoBookInGivenName(){
+    void expectsNoExceptionWhenThereIsNoBookInGivenName() {
+        List<Book> initialBook = listOf2Books();
+        Library aLibrary = new Library(initialBook);
+
+        assertDoesNotThrow(() -> aLibrary.checkOut("gitanjali"));
+    }
+
+    @Test
+    void expectsNoExceptionWhenThereIsCheckInOfACheckedOutBook() {
+        List<Book> initialBook = listOf2Books();
+        Library aLibrary = new Library(initialBook);
+
+        assertDoesNotThrow(() -> aLibrary.checkOut("gitanjali"));
+        assertDoesNotThrow(() -> aLibrary.checkIn("gitanjali"));
+    }
+
+    List<Book> listOf2Books() {
         final String book1_name = "Head First JAVA";
         final String book1Author = "someone";
         Book book1 = book(book1_name, book1Author, 2018);
@@ -94,10 +86,7 @@ class LibraryTest {
         final String book2Author = "R N Tagore";
         Book book2 = book(book2_name, book2Author, 1910);
 
-        List<Book> initialBooks = new ArrayList<>(Arrays.asList(book1, book2));
-        Library aLibrary = new Library(initialBooks);
-
-        assertDoesNotThrow(() -> aLibrary.checkout("gitanjali"));
+        return new ArrayList<>(Arrays.asList(book1, book2));
     }
 
 }

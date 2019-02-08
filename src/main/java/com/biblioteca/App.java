@@ -1,16 +1,27 @@
 package com.biblioteca;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 // Represents the main application
 class App {
     final static String BOOK_DETAILS_FORMAT = "%-20s %-20s %-20s %-20s";
     private final IO aIOStream;
     private final Library aLibrary;
+    private Map<String, Actionable> options;
 
     App(IO aIOStream, Library aLibrary) {
         this.aIOStream = aIOStream;
         this.aLibrary = aLibrary;
+        this.options = new HashMap<>();
+        setupMenu();
+    }
+
+    private void setupMenu() {
+        options.put("1", this::displayAllBookList);
+        options.put("2", this::checkOut);
+        options.put("3", this::checkIn);
     }
 
     void start() {
@@ -18,40 +29,34 @@ class App {
         options();
     }
 
-    private void options() {
-        while (true) {
-            menu();
-            switch (aIOStream.readInputAsString()) {
-                case "1":
-                    displayAllBookList();
-                    break;
-                case "2":
-                    checkout();
-                    break;
-                case "quit":
-                    return;
-                default:
-                    aIOStream.displayWithNewLine("Select a valid option!");
-                    break;
-            }
-        }
-    }
-
     private void welcome() {
         String WELCOME_MESSAGE = "Welcome to Biblioteca";
         aIOStream.displayWithNewLine(WELCOME_MESSAGE);
     }
 
+    private void options() {
+        while (true) {
+            menu();
+            String inputOption = aIOStream.readInputAsString();
+            if (inputOption.equalsIgnoreCase("quit")) {
+                break;
+            }
+            options.getOrDefault(inputOption, () -> aIOStream.displayWithNewLine("Select a valid option!")).execute();
+        }
+    }
+
     private void menu() {
-        aIOStream.displayWithNewLine("...............................MENU................................");
+        aIOStream.displayWithNewLine("\n...............................MENU................................");
         aIOStream.displayWithNewLine("1. List All Books");
         aIOStream.displayWithNewLine("2. Checkout");
+        aIOStream.displayWithNewLine("3. Return");
+        aIOStream.displayWithNewLine("\ntype \"quit\" to exit");
         aIOStream.displayWithNewLine("...................................................................");
         aIOStream.display("Enter your choice: ");
     }
 
     private void displayAllBookList() {
-        if(aLibrary.isEmpty()) {
+        if (aLibrary.isEmpty()) {
             aIOStream.displayWithNewLine("Sorry! No book in Library");
             return;
         }
@@ -68,20 +73,29 @@ class App {
         }
     }
 
-    private void checkout(){
-        if(aLibrary.isEmpty()) {
+    private void checkOut() {
+        if (aLibrary.isEmpty()) {
             aIOStream.displayWithNewLine("Sorry! No book in Library");
             return;
         }
         aIOStream.display("Enter book name: ");
         String bookName = aIOStream.readInputAsString();
         try {
-            aLibrary.checkout(bookName);
+            aLibrary.checkOut(bookName);
             aIOStream.displayWithNewLine("Thank you! Enjoy the book");
-            return;
         } catch (InvalidBookNameException exception) {
-            aIOStream.displayWithNewLine(exception.getMessage());
+            aIOStream.displayWithNewLine("That book is not available");
         }
-        aIOStream.displayWithNewLine("Invalid Option");
+    }
+
+    private void checkIn() {
+        aIOStream.display("Enter book name you have: ");
+        String bookName = aIOStream.readInputAsString();
+        try {
+            aLibrary.checkIn(bookName);
+            aIOStream.displayWithNewLine("Thank you for returning the book");
+        } catch (InvalidBookNameException exception) {
+            aIOStream.displayWithNewLine("That is not a valid book to return");
+        }
     }
 }
