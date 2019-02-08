@@ -16,7 +16,7 @@ class LibraryTest {
 
         Library aLibrary = new Library(expectedBookList);
 
-        List<Book> allBooks = aLibrary.listOfAllBooks();
+        List<Book> allBooks = aLibrary.listOfAvailableBooks();
 
         assertEquals(expectedBookList, allBooks);
     }
@@ -27,7 +27,7 @@ class LibraryTest {
         Library aLibrary = new Library(initialBooks);
 
         aLibrary.checkOut("gitanjali");
-        List<Book> allAvailableBooks = aLibrary.listOfAllBooks();
+        List<Book> allAvailableBooks = aLibrary.listOfAvailableBooks();
 
         assertEquals(1, allAvailableBooks.size());
     }
@@ -46,7 +46,7 @@ class LibraryTest {
         Library aLibrary = new Library(initialBooks);
 
         aLibrary.checkOut("Head First JAVA");
-        List<Book> allAvailableBooks = aLibrary.listOfAllBooks();
+        List<Book> allAvailableBooks = aLibrary.listOfAvailableBooks();
         initialBooks.remove(book1);
 
         assertEquals(initialBooks, allAvailableBooks);

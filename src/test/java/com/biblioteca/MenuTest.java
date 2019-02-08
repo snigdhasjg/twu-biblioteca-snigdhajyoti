@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static com.biblioteca.Book.book;
 import static org.mockito.Mockito.*;
@@ -12,25 +14,25 @@ import static org.mockito.Mockito.verify;
 class MenuTest {
 
     @Test
-    void expectsToQuitIfAllUserTypeQuitInLowercase(){
+    void expectsToQuitIfAllUserTypeQuitInLowercase() {
         IO mockIO = mock(IO.class);
         Menu aMenu = new Menu(mockIO, initializeTheLibrary());
 
-        Mockito.when(mockIO.readInputAsString()).thenReturn("quit");
+        when(mockIO.readInputAsString()).thenReturn("quit");
         aMenu.options();
 
-        verify(mockIO,times(1)).displayWithNewLine("\n.....................MENU.....................");
+        verify(mockIO, times(1)).displayWithNewLine("\n.....................MENU.....................");
     }
 
     @Test
-    void expectsToQuitIfAllUserTypeQuitInUppercase(){
+    void expectsToQuitIfAllUserTypeQuitInUppercase() {
         IO mockIO = mock(IO.class);
         Menu aMenu = new Menu(mockIO, initializeTheLibrary());
 
-        Mockito.when(mockIO.readInputAsString()).thenReturn("QUIt");
+        when(mockIO.readInputAsString()).thenReturn("QUIt");
         aMenu.options();
 
-        verify(mockIO,times(1)).displayWithNewLine("\n.....................MENU.....................");
+        verify(mockIO, times(1)).displayWithNewLine("\n.....................MENU.....................");
     }
 
     @Test
@@ -38,7 +40,7 @@ class MenuTest {
         IO mockIO = mock(IO.class);
         Menu aMenu = new Menu(mockIO, initializeTheLibrary());
 
-        Mockito.when(mockIO.readInputAsString()).thenReturn("1", "quit");
+        when(mockIO.readInputAsString()).thenReturn("1", "quit");
         aMenu.options();
 
         final int wantedNumberOfInvocations = 2;
@@ -58,7 +60,7 @@ class MenuTest {
         IO mockIO = mock(IO.class);
         Menu aMenu = new Menu(mockIO, initializeTheLibrary());
 
-        Mockito.when(mockIO.readInputAsString()).thenReturn("1", "quit");
+        when(mockIO.readInputAsString()).thenReturn("1", "quit");
         aMenu.options();
 
         verify(mockIO).displayWithNewLine("Gitanjali            R N Tagore           1910");
@@ -70,7 +72,7 @@ class MenuTest {
         IO mockIO = mock(IO.class);
         Menu aMenu = new Menu(mockIO, initializeTheLibrary());
 
-        Mockito.when(mockIO.readInputAsString()).thenReturn("invalid option", "quit");
+        when(mockIO.readInputAsString()).thenReturn("invalid option", "quit");
         aMenu.options();
 
         verify(mockIO).displayWithNewLine("Select a valid option!");
@@ -81,7 +83,7 @@ class MenuTest {
         IO mockIO = mock(IO.class);
         Menu aMenu = new Menu(mockIO, initializeTheLibrary());
 
-        Mockito.when(mockIO.readInputAsString()).thenReturn("1", "2", "gitanjali", "1", "quit");
+        when(mockIO.readInputAsString()).thenReturn("1", "2", "gitanjali", "1", "quit");
         aMenu.options();
 
         verify(mockIO, times(2))
@@ -95,10 +97,32 @@ class MenuTest {
         IO mockIO = mock(IO.class);
         Menu aMenu = new Menu(mockIO, initializeTheLibrary());
 
-        Mockito.when(mockIO.readInputAsString()).thenReturn("2", "2 states", "3", "2 states", "quit");
+        when(mockIO.readInputAsString()).thenReturn("2", "2 states", "3", "2 states", "quit");
         aMenu.options();
 
         verify(mockIO).displayWithNewLine("Thank you for returning the book");
+    }
+
+    @Test
+    void expectsToShowEmptyLibraryWhenThereIsNoBookWhileShowingTheList() {
+        IO mockIO = mock(IO.class);
+        Menu aMenu = new Menu(mockIO, new Library(Collections.EMPTY_LIST));
+
+        when(mockIO.readInputAsString()).thenReturn("1", "quit");
+        aMenu.options();
+
+        verify(mockIO).displayWithNewLine("Sorry! No book in Library");
+    }
+
+    @Test
+    void expectsToShowEmptyLibraryWhenThereIsNoBookWhileCheckingOut() {
+        IO mockIO = mock(IO.class);
+        Menu aMenu = new Menu(mockIO, new Library(Collections.EMPTY_LIST));
+
+        when(mockIO.readInputAsString()).thenReturn("2", "quit");
+        aMenu.options();
+
+        verify(mockIO).displayWithNewLine("Sorry! No book in Library");
     }
 
     private Library initializeTheLibrary() {

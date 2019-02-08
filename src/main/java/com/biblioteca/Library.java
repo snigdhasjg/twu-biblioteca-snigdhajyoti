@@ -3,35 +3,35 @@ package com.biblioteca;
 import java.util.ArrayList;
 import java.util.List;
 
-// Represents a place which have all books in in
+// Represents a place which have all books in it
 class Library {
 
-    private List<Book> listOfAvailableBooks;
-    private List<Book> listOfCheckedOutBooks;
+    private List<Book> availableBooks;
+    private List<Book> checkedOutBooks;
 
     Library(List<Book> listOfBooks) {
-        this.listOfAvailableBooks = new ArrayList<>(listOfBooks);
-        this.listOfCheckedOutBooks = new ArrayList<>();
+        this.availableBooks = new ArrayList<>(listOfBooks);
+        this.checkedOutBooks = new ArrayList<>();
     }
 
-    List<Book> listOfAllBooks() {
-        return listOfAvailableBooks;
+    List<Book> listOfAvailableBooks() {
+        return availableBooks;
     }
 
     void checkOut(String bookName) throws InvalidBookNameException {
-        Book searchedBook = searchBook(bookName, listOfAvailableBooks);
-        listOfAvailableBooks.remove(searchedBook);
-        listOfCheckedOutBooks.add(searchedBook);
+        Book searchedBook = searchBook(bookName, availableBooks);
+        availableBooks.remove(searchedBook);
+        checkedOutBooks.add(searchedBook);
     }
 
     void checkIn(String bookName) throws InvalidBookNameException {
-        Book searchedBook = searchBook(bookName, listOfCheckedOutBooks);
-        listOfCheckedOutBooks.remove(searchedBook);
-        listOfAvailableBooks.add(searchedBook);
+        Book searchedBook = searchBook(bookName, checkedOutBooks);
+        checkedOutBooks.remove(searchedBook);
+        availableBooks.add(searchedBook);
     }
 
     boolean isEmpty() {
-        return listOfAvailableBooks.size() == 0;
+        return availableBooks.size() == 0;
     }
 
     private Book searchBook(String bookName, List<Book> someGroupOfBook) throws InvalidBookNameException {
