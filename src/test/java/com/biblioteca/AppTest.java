@@ -43,8 +43,11 @@ class AppTest {
 
         final int wantedNumberOfInvocations = 2;
         verify(mockIO, times(wantedNumberOfInvocations))
-                .displayWithNewLine("...............................MENU................................");
+                .displayWithNewLine("\n...............................MENU................................");
         verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("1. List All Books");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("2. Checkout");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("3. Return");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\ntype \"quit\" to exit");
         verify(mockIO, times(wantedNumberOfInvocations))
                 .displayWithNewLine("...................................................................");
         verify(mockIO, times(wantedNumberOfInvocations)).display("Enter your choice: ");
@@ -66,14 +69,24 @@ class AppTest {
         IO mockIO = mock(IO.class);
         App bibliotecaApp = new App(mockIO, initializeTheLibrary());
 
-        Mockito.when(mockIO.readInputAsString()).thenReturn("1","2", "gitanjali","1", "quit");
-        when(mockIO.readInputAsNumber()).thenReturn(1);
+        Mockito.when(mockIO.readInputAsString()).thenReturn("1", "2", "gitanjali", "1", "quit");
         bibliotecaApp.start();
 
         verify(mockIO, times(2))
                 .displayWithNewLine(String.format(App.BOOK_DETAILS_FORMAT, "1.", "2 States", "Chetan Bhagat", "2004"));
         verify(mockIO, times(1))
                 .displayWithNewLine(String.format(App.BOOK_DETAILS_FORMAT, "2.", "Gitanjali", "R N Tagore", "1910"));
+    }
+
+    @Test
+    void expectsACheckedOutBookToCheckInSuccessfully() {
+        IO mockIO = mock(IO.class);
+        App bibliotecaApp = new App(mockIO, initializeTheLibrary());
+
+        Mockito.when(mockIO.readInputAsString()).thenReturn("2", "2 states", "3", "2 states", "quit");
+        bibliotecaApp.start();
+
+        verify(mockIO).displayWithNewLine("Thank you for returning the book");
     }
 
     private Library initializeTheLibrary() {
