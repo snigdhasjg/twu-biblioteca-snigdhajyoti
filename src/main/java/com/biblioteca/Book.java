@@ -1,6 +1,6 @@
 package com.biblioteca;
 
-// Represents a single book
+//Represents a written or printed work consisting of pages glued or sewn together along one side and bound in covers
 class Book {
     private final String name;
     private final String author;
