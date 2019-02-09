@@ -1,5 +1,9 @@
-package com.biblioteca;
+package com.biblioteca.menu;
 
+import com.biblioteca.Book;
+import com.biblioteca.Library;
+import com.biblioteca.io.IO;
+import com.biblioteca.menu.Menu;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

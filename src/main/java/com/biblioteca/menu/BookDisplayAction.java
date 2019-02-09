@@ -1,4 +1,8 @@
-package com.biblioteca;
+package com.biblioteca.menu;
+
+import com.biblioteca.Book;
+import com.biblioteca.Library;
+import com.biblioteca.io.IO;
 
 import java.util.List;
 
