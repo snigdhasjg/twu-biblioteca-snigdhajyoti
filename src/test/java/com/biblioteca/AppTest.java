@@ -1,5 +1,7 @@
 package com.biblioteca;
 
+import com.biblioteca.io.IO;
+import com.biblioteca.menu.Menu;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;

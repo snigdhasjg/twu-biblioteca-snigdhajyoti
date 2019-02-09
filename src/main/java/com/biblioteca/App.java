@@ -1,5 +1,8 @@
 package com.biblioteca;
 
+import com.biblioteca.io.IO;
+import com.biblioteca.menu.Menu;
+
 // Represents the starting of biblioteca application
 class App {
     private static final String WELCOME_TO_BIBLIOTECA = "Welcome to Biblioteca";

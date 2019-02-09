@@ -1,4 +1,4 @@
-package com.biblioteca;
+package com.biblioteca.menu;
 
 interface Actionable {
 

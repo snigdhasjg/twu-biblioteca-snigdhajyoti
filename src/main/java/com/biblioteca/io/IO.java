@@ -1,4 +1,4 @@
-package com.biblioteca;
+package com.biblioteca.io;
 
 public interface IO {
     void displayWithNewLine(String message);

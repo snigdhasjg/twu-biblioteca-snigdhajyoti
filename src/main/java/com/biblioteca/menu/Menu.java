@@ -1,10 +1,13 @@
-package com.biblioteca;
+package com.biblioteca.menu;
+
+import com.biblioteca.Library;
+import com.biblioteca.io.IO;
 
 import java.util.HashMap;
 import java.util.Map;
 
 //Represents a list of option available in a library
-class Menu {
+public class Menu {
     private static final String SELECT_A_VALID_OPTION = "Select a valid option!";
     private static final String TYPE_QUIT_TO_EXIT = "type \"quit\" to exit";
     private static final String ENTER_YOUR_CHOICE = "Enter your choice: ";
@@ -15,14 +18,14 @@ class Menu {
     private final Library aLibrary;
     private Map<String, Actionable> options;
 
-    Menu(IO anIOStream, Library aLibrary) {
+    public Menu(IO anIOStream, Library aLibrary) {
         this.anIOStream = anIOStream;
         this.aLibrary = aLibrary;
         options = new HashMap<>();
         setupMenu();
     }
 
-    void options() {
+    public void options() {
         while (true) {
             displayMenu();
             String inputOption = anIOStream.readInputAsString().trim();

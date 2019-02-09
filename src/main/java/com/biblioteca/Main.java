@@ -1,5 +1,8 @@
 package com.biblioteca;
 
+import com.biblioteca.io.*;
+import com.biblioteca.menu.Menu;
+
 import java.util.Arrays;
 import java.util.Scanner;
 

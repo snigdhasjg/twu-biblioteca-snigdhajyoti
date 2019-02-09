@@ -1,4 +1,4 @@
-package com.biblioteca;
+package com.biblioteca.io;
 
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -8,7 +8,7 @@ public class ConsoleIO implements IO {
     private final PrintStream outputStream;
     private final Scanner aScanner;
 
-    ConsoleIO(PrintStream outputStream, Scanner aScanner) {
+    public ConsoleIO(PrintStream outputStream, Scanner aScanner) {
         this.outputStream = outputStream;
         this.aScanner = aScanner;
     }

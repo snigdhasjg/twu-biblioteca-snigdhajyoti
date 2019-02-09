@@ -1,4 +1,8 @@
-package com.biblioteca;
+package com.biblioteca.menu;
+
+import com.biblioteca.InvalidBookNameException;
+import com.biblioteca.Library;
+import com.biblioteca.io.IO;
 
 public class CheckInAction implements Actionable {
     private static final String RETURN = "Return";
