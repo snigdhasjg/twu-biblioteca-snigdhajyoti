@@ -1,7 +1,8 @@
 package com.biblioteca;
 
-public interface Actionable {
+interface Actionable {
 
     void execute();
 
+    String displayName();
 }
