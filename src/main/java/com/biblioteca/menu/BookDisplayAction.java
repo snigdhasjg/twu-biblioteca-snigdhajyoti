@@ -1,8 +1,9 @@
 package com.biblioteca.menu;
 
-import com.biblioteca.Book;
+import com.biblioteca.items.Book;
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
+import com.biblioteca.items.LibraryItems;
 
 import java.util.List;
 
@@ -28,12 +29,15 @@ class BookDisplayAction implements Actionable {
             anIOStream.displayWithNewLine(EMPTY_BOOK);
             return;
         }
-        anIOStream.displayWithNewLine(String.format(BOOK_DETAILS_FORMAT, BOOK_NAME, AUTHOR, YEAR));
-        anIOStream.displayWithNewLine(new String(new char[46]).replace("\0", "-"));
-        List<Book> allBooks = aLibrary.listOfAvailableBooks();
-        for (Book eachBook : allBooks) {
-            String bookDetails = String.format(BOOK_DETAILS_FORMAT, eachBook.title(), eachBook.author(), eachBook.year());
-            anIOStream.displayWithNewLine(bookDetails);
+        List<LibraryItems> allItems = aLibrary.listOfAvailableItems();
+        if(allItems.get(0) instanceof Book) {
+            anIOStream.displayWithNewLine(String.format(BOOK_DETAILS_FORMAT, BOOK_NAME, AUTHOR, YEAR));
+            anIOStream.displayWithNewLine(new String(new char[46]).replace("\0", "-"));
+            for (LibraryItems eachItem : allItems) {
+                Book aBook = (Book) eachItem;
+                String bookDetails = String.format(BOOK_DETAILS_FORMAT, aBook.title(), aBook.author(), aBook.year());
+                anIOStream.displayWithNewLine(bookDetails);
+            }
         }
     }
 

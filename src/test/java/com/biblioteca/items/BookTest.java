@@ -1,8 +1,8 @@
-package com.biblioteca;
+package com.biblioteca.items;
 
 import org.junit.jupiter.api.Test;
 
-import static com.biblioteca.Book.book;
+import static com.biblioteca.items.Book.book;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BookTest {

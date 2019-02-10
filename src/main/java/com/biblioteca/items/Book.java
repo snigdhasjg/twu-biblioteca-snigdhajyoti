@@ -1,7 +1,7 @@
-package com.biblioteca;
+package com.biblioteca.items;
 
 //Represents a written or printed work consisting of pages glued or sewn together along one side and bound in covers
-public class Book {
+public class Book implements LibraryItems{
     private final String name;
     private final String author;
     private final int yearOfPublication;
@@ -16,6 +16,7 @@ public class Book {
         this.yearOfPublication = yearOfPublication;
     }
 
+    @Override
     public String title() {
         return name;
     }

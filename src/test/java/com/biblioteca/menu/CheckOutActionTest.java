@@ -1,10 +1,8 @@
 package com.biblioteca.menu;
 
-import com.biblioteca.Book;
+import com.biblioteca.items.Book;
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
-import com.biblioteca.menu.Actionable;
-import com.biblioteca.menu.CheckOutAction;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;

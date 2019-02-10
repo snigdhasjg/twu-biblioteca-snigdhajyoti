@@ -1,46 +1,49 @@
 package com.biblioteca;
 
+import com.biblioteca.exception.InvalidItemNameException;
+import com.biblioteca.items.LibraryItems;
+
 import java.util.ArrayList;
 import java.util.List;
 
-// Represents a place which have all books in it
+// Represents a place which have all items in it
 public class Library {
 
-    private List<Book> availableBooks;
-    private List<Book> checkedOutBooks;
+    private List<LibraryItems> availableItems;
+    private List<LibraryItems> checkedOutItems;
 
-    public Library(List<Book> listOfBooks) {
-        this.availableBooks = new ArrayList<>(listOfBooks);
-        this.checkedOutBooks = new ArrayList<>();
+    public Library(List<LibraryItems> listOfItems) {
+        this.availableItems = new ArrayList<>(listOfItems);
+        this.checkedOutItems = new ArrayList<>();
     }
 
-    public List<Book> listOfAvailableBooks() {
-        return availableBooks;
+    public List<LibraryItems> listOfAvailableItems() {
+        return availableItems;
     }
 
-    public void checkOut(String bookName) throws InvalidBookNameException {
-        Book searchedBook = searchBook(bookName, availableBooks);
-        availableBooks.remove(searchedBook);
-        checkedOutBooks.add(searchedBook);
+    public void checkOut(String itemName) throws InvalidItemNameException {
+        LibraryItems searchedItem = searchItem(itemName, availableItems);
+        availableItems.remove(searchedItem);
+        checkedOutItems.add(searchedItem);
     }
 
-    public void checkIn(String bookName) throws InvalidBookNameException {
-        Book searchedBook = searchBook(bookName, checkedOutBooks);
-        checkedOutBooks.remove(searchedBook);
-        availableBooks.add(searchedBook);
+    public void checkIn(String itemName) throws InvalidItemNameException {
+        LibraryItems searchedItem = searchItem(itemName, checkedOutItems);
+        checkedOutItems.remove(searchedItem);
+        availableItems.add(searchedItem);
     }
 
     public boolean isEmpty() {
-        return availableBooks.size() == 0;
+        return availableItems.size() == 0;
     }
 
-    private Book searchBook(String bookName, List<Book> someGroupOfBook) throws InvalidBookNameException {
-        for (Book eachBook : someGroupOfBook) {
-            String eachBookTitle = eachBook.title();
-            if (eachBookTitle.equalsIgnoreCase(bookName)) {
-                return eachBook;
+    private LibraryItems searchItem(String itemName, List<LibraryItems> someGroupOfItem) throws InvalidItemNameException {
+        for (LibraryItems eachItem : someGroupOfItem) {
+            String eachItemTitle = eachItem.title();
+            if (eachItemTitle.equalsIgnoreCase(itemName)) {
+                return eachItem;
             }
         }
-        throw new InvalidBookNameException();
+        throw new InvalidItemNameException();
     }
 }

@@ -1,39 +1,44 @@
 package com.biblioteca;
 
+import com.biblioteca.exception.InvalidItemNameException;
+import com.biblioteca.items.Book;
+import com.biblioteca.items.LibraryItems;
+import com.biblioteca.items.Movie;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.biblioteca.Book.*;
+import static com.biblioteca.items.Book.*;
+import static com.biblioteca.items.Movie.movie;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LibraryTest {
     @Test
     void expectsADisplayOfAListOfBooksPresentsInLibrary() {
-        List<Book> expectedBookList = listOf2Books();
+        List<LibraryItems> expectedBookList = listOf2Books();
 
         Library aLibrary = new Library(expectedBookList);
 
-        List<Book> allBooks = aLibrary.listOfAvailableBooks();
+        List<LibraryItems> allBooks = aLibrary.listOfAvailableItems();
 
         assertEquals(expectedBookList, allBooks);
     }
 
     @Test
-    void expectsToNumberOfBooks1When1BookHasCheckedOut() throws InvalidBookNameException {
-        List<Book> initialBooks = listOf2Books();
+    void expectsToNumberOfBooks1When1BookHasCheckedOut() throws InvalidItemNameException {
+        List<LibraryItems> initialBooks = listOf2Books();
         Library aLibrary = new Library(initialBooks);
 
         aLibrary.checkOut("gitanjali");
-        List<Book> allAvailableBooks = aLibrary.listOfAvailableBooks();
+        List<LibraryItems> allAvailableBooks = aLibrary.listOfAvailableItems();
 
         assertEquals(1, allAvailableBooks.size());
     }
 
     @Test
-    void expectsBookNo1CheckedOut() throws InvalidBookNameException {
+    void expectsBookNo1CheckedOut() throws InvalidItemNameException {
         final String book1_name = "Head First JAVA";
         final String book1Author = "someone";
         Book book1 = book(book1_name, book1Author, 2018);
@@ -42,11 +47,11 @@ class LibraryTest {
         final String book2Author = "R N Tagore";
         Book book2 = book(book2_name, book2Author, 1910);
 
-        List<Book> initialBooks = new ArrayList<>(Arrays.asList(book1, book2));
+        List<LibraryItems> initialBooks = new ArrayList<>(Arrays.asList(book1, book2));
         Library aLibrary = new Library(initialBooks);
 
         aLibrary.checkOut("Head First JAVA");
-        List<Book> allAvailableBooks = aLibrary.listOfAvailableBooks();
+        List<LibraryItems> allAvailableBooks = aLibrary.listOfAvailableItems();
         initialBooks.remove(book1);
 
         assertEquals(initialBooks, allAvailableBooks);
@@ -54,15 +59,15 @@ class LibraryTest {
 
     @Test
     void expectsExceptionWhenThereIsNoBookInGivenIndex() {
-        List<Book> initialBook = listOf2Books();
+        List<LibraryItems> initialBook = listOf2Books();
         Library aLibrary = new Library(initialBook);
 
-        assertThrows(InvalidBookNameException.class, () -> aLibrary.checkOut("some"));
+        assertThrows(InvalidItemNameException.class, () -> aLibrary.checkOut("some"));
     }
 
     @Test
     void expectsNoExceptionWhenThereIsNoBookInGivenName() {
-        List<Book> initialBook = listOf2Books();
+        List<LibraryItems> initialBook = listOf2Books();
         Library aLibrary = new Library(initialBook);
 
         assertDoesNotThrow(() -> aLibrary.checkOut("gitanjali"));
@@ -70,14 +75,22 @@ class LibraryTest {
 
     @Test
     void expectsNoExceptionWhenThereIsCheckInOfACheckedOutBook() {
-        List<Book> initialBook = listOf2Books();
+        List<LibraryItems> initialBook = listOf2Books();
         Library aLibrary = new Library(initialBook);
 
         assertDoesNotThrow(() -> aLibrary.checkOut("gitanjali"));
         assertDoesNotThrow(() -> aLibrary.checkIn("gitanjali"));
     }
 
-    List<Book> listOf2Books() {
+
+    private List<LibraryItems> listOf2Movies(){
+        Movie movie1 = movie("The Social Network","David Finche",2010,7.7);
+        Movie movie2 = movie("URI","Aditya Dhar",2019,9.1);
+
+        return new ArrayList<>(Arrays.asList(movie1,movie2));
+    }
+
+    private List<LibraryItems> listOf2Books() {
         final String book1_name = "Head First JAVA";
         final String book1Author = "someone";
         Book book1 = book(book1_name, book1Author, 2018);
