@@ -1,15 +1,14 @@
 package com.biblioteca.menu;
 
-import com.biblioteca.Book;
+import com.biblioteca.items.Book;
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
-import com.biblioteca.menu.Menu;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 
-import static com.biblioteca.Book.book;
+import static com.biblioteca.items.Book.book;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
 
@@ -48,10 +47,10 @@ class MenuTest {
         final int wantedNumberOfInvocations = 2;
         verify(mockIO, times(wantedNumberOfInvocations))
                 .displayWithNewLine("\n.....................MENU.....................");
-        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("1. List All Books");
-        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("2. Checkout");
-        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("3. Return");
-        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("type \"quit\" to exit");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t1. List All Books");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t2. Checkout");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t3. Return");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\ttype \"quit\" to exit");
         verify(mockIO, times(wantedNumberOfInvocations))
                 .displayWithNewLine("..............................................");
         verify(mockIO, times(wantedNumberOfInvocations)).display("Enter your choice: ");

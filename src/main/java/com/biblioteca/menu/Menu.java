@@ -55,9 +55,9 @@ public class Menu {
     private void displayMenu() {
         anIOStream.displayWithNewLine(MENU_LINE);
 
-        options.forEach((key, action) -> anIOStream.displayWithNewLine(key + ". " + action.displayName()));
+        options.forEach((key, action) -> anIOStream.displayWithNewLine("\t\t\t" + key + ". " + action.displayName()));
 
-        anIOStream.displayWithNewLine(TYPE_QUIT_TO_EXIT);
+        anIOStream.displayWithNewLine("\t\t\t"+TYPE_QUIT_TO_EXIT);
         anIOStream.displayWithNewLine(DOTTED_LINE);
         anIOStream.display(ENTER_YOUR_CHOICE);
     }

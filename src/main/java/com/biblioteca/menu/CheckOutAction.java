@@ -1,10 +1,10 @@
 package com.biblioteca.menu;
 
-import com.biblioteca.InvalidBookNameException;
+import com.biblioteca.exception.InvalidItemNameException;
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
 
-public class CheckOutAction implements Actionable {
+class CheckOutAction implements Actionable {
     private static final String CHECKOUT = "Checkout";
     private static final String ENTER_BOOK_NAME = "Enter book name: ";
     private static final String EMPTY_BOOK = "Sorry! No book in Library";
@@ -30,7 +30,7 @@ public class CheckOutAction implements Actionable {
         try {
             aLibrary.checkOut(bookName);
             anIOStream.displayWithNewLine(THANK_YOU_ENJOY_THE_BOOK);
-        } catch (InvalidBookNameException exception) {
+        } catch (InvalidItemNameException exception) {
             anIOStream.displayWithNewLine(BOOK_NOT_AVAILABLE);
         }
     }
