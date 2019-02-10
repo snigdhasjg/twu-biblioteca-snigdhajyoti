@@ -1,12 +1,13 @@
 package com.biblioteca;
 
 import com.biblioteca.io.*;
+import com.biblioteca.items.Book;
 import com.biblioteca.menu.Menu;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static com.biblioteca.Book.book;
+import static com.biblioteca.items.Book.book;
 
 // Represents Library Management Engine
 public class Main {
