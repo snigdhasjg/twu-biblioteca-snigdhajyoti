@@ -82,6 +82,42 @@ class LibraryTest {
         assertDoesNotThrow(() -> aLibrary.checkIn("gitanjali"));
     }
 
+    @Test
+    void expectsADisplayOfAListOfMoviesPresentsInLibrary() {
+        List<LibraryItems> expectedBookList = listOf2Movies();
+
+        Library aLibrary = new Library(expectedBookList);
+
+        List<LibraryItems> allMovies = aLibrary.listOfAvailableItems();
+
+        assertEquals(expectedBookList, allMovies);
+    }
+
+    @Test
+    void expectsToNumberOfMovies1When1MovieHasCheckedOut() throws InvalidItemNameException {
+        List<LibraryItems> initialMovies = listOf2Movies();
+        Library aLibrary = new Library(initialMovies);
+
+        aLibrary.checkOut("uri");
+        List<LibraryItems> allAvailableMovies = aLibrary.listOfAvailableItems();
+
+        assertEquals(1, allAvailableMovies.size());
+    }
+
+    @Test
+    void expectsMovieNo1CheckedOut() throws InvalidItemNameException {
+        Movie movie1 = movie("The Social Network","David Finche",2010,7.7);
+        Movie movie2 = movie("URI","Aditya Dhar",2019,9.1);
+
+        List<LibraryItems> initialMovies = new ArrayList<>(Arrays.asList(movie1, movie2));
+        Library aLibrary = new Library(initialMovies);
+
+        aLibrary.checkOut("the social network");
+        List<LibraryItems> allAvailableBooks = aLibrary.listOfAvailableItems();
+        initialMovies.remove(movie1);
+
+        assertEquals(initialMovies, allAvailableBooks);
+    }
 
     private List<LibraryItems> listOf2Movies(){
         Movie movie1 = movie("The Social Network","David Finche",2010,7.7);
