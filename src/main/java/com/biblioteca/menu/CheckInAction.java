@@ -6,9 +6,9 @@ import com.biblioteca.io.IO;
 
 class CheckInAction implements Actionable {
     private static final String RETURN = "Return";
-    private static final String ENTER_BOOK_NAME = "Enter book name: ";
-    private static final String UNSUCCESSFUL_RETURN = "That is not a valid book to return";
-    private static final String THANK_YOU_FOR_RETURNING_THE_BOOK = "Thank you for returning the book";
+    private static final String ENTER_ITEM_NAME = "Enter item name: ";
+    private static final String UNSUCCESSFUL_RETURN = "That is not a valid item to return";
+    private static final String SUCCESSFUL_RETURN = "Thank you for returning the item";
 
     private final IO anIOStream;
     private final Library aLibrary;
@@ -20,11 +20,11 @@ class CheckInAction implements Actionable {
 
     @Override
     public void execute() {
-        anIOStream.display(ENTER_BOOK_NAME);
+        anIOStream.display(ENTER_ITEM_NAME);
         String bookName = anIOStream.readInputAsString();
         try {
             aLibrary.checkIn(bookName);
-            anIOStream.displayWithNewLine(THANK_YOU_FOR_RETURNING_THE_BOOK);
+            anIOStream.displayWithNewLine(SUCCESSFUL_RETURN);
         } catch (InvalidItemNameException exception) {
             anIOStream.displayWithNewLine(UNSUCCESSFUL_RETURN);
         }

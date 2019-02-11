@@ -1,5 +1,6 @@
 package com.biblioteca.items;
 
+//Represents single a cinema film
 public class Movie implements LibraryItems {
     private final String name;
     private final String director;

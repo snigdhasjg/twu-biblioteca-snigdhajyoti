@@ -6,10 +6,10 @@ import com.biblioteca.io.IO;
 
 class CheckOutAction implements Actionable {
     private static final String CHECKOUT = "Checkout";
-    private static final String ENTER_BOOK_NAME = "Enter book name: ";
-    private static final String EMPTY_BOOK = "Sorry! No book in Library";
-    private static final String BOOK_NOT_AVAILABLE = "That book is not available";
-    private static final String THANK_YOU_ENJOY_THE_BOOK = "Thank you! Enjoy the book";
+    private static final String ENTER_ITEM_NAME = "Enter item name: ";
+    private static final String EMPTY_LIBRARY = "Sorry! No item in Library";
+    private static final String ITEM_NOT_AVAILABLE = "That item is not available";
+    private static final String SUCCESSFUL_CHECKOUT = "Thank you! Enjoy the item";
 
     private final IO anIOStream;
     private final Library aLibrary;
@@ -22,16 +22,16 @@ class CheckOutAction implements Actionable {
     @Override
     public void execute() {
         if (aLibrary.isEmpty()) {
-            anIOStream.displayWithNewLine(EMPTY_BOOK);
+            anIOStream.displayWithNewLine(EMPTY_LIBRARY);
             return;
         }
-        anIOStream.display(ENTER_BOOK_NAME);
+        anIOStream.display(ENTER_ITEM_NAME);
         String bookName = anIOStream.readInputAsString();
         try {
             aLibrary.checkOut(bookName);
-            anIOStream.displayWithNewLine(THANK_YOU_ENJOY_THE_BOOK);
+            anIOStream.displayWithNewLine(SUCCESSFUL_CHECKOUT);
         } catch (InvalidItemNameException exception) {
-            anIOStream.displayWithNewLine(BOOK_NOT_AVAILABLE);
+            anIOStream.displayWithNewLine(ITEM_NOT_AVAILABLE);
         }
     }
 
