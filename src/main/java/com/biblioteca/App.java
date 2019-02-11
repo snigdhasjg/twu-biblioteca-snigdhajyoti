@@ -1,5 +1,7 @@
 package com.biblioteca;
 
+import com.biblioteca.exception.NotABookLibraryException;
+import com.biblioteca.exception.NotAMovieLibraryException;
 import com.biblioteca.io.IO;
 import com.biblioteca.menu.Menu;
 
@@ -15,7 +17,7 @@ class App {
         this.aMenu = aMenu;
     }
 
-    void start() {
+    void start() throws NotABookLibraryException, NotAMovieLibraryException {
         welcome();
         aMenu.options();
     }
