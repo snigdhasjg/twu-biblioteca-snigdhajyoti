@@ -105,7 +105,7 @@ class MenuTest {
         when(mockIO.readInputAsString()).thenReturn("2", "2 states", "3", "2 states", "quit");
         aMenu.options();
 
-        verify(mockIO).displayWithNewLine("Thank you for returning the book");
+        verify(mockIO).displayWithNewLine("Thank you for returning the item");
     }
 
     @Test
