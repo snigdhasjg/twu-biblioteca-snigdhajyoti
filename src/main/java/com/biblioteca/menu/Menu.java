@@ -10,7 +10,6 @@ import java.util.Map;
 
 //Represents a list of option available in a library
 public class Menu {
-    private static final String SELECT_A_VALID_OPTION = "Select a valid option!";
     private static final String TYPE_QUIT_TO_EXIT = "type \"quit\" to exit";
     private static final String ENTER_YOUR_CHOICE = "Enter your choice: ";
     private static final String MENU_LINE = "\n\n.....................MENU.....................";
@@ -29,35 +28,25 @@ public class Menu {
         setupMenu();
     }
 
-    public void options() throws NotABookLibraryException, NotAMovieLibraryException {
+    public void options(){
         while (true) {
             displayMenu();
             String inputOption = anIOStream.readInputAsString().trim();
             if (inputOption.equalsIgnoreCase("quit")) {
                 break;
             }
-            options.getOrDefault(inputOption, new Actionable() {
-                @Override
-                public void execute() {
-                    anIOStream.displayWithNewLine(SELECT_A_VALID_OPTION);
-                }
-
-                @Override
-                public String displayName() {
-                    return null;
-                }
-            }).execute();
+            options.getOrDefault(inputOption, new InvalidAction(anIOStream)).execute();
         }
     }
 
     private void setupMenu() {
-        options.put("1", new BookDisplayAction(anIOStream, aBookLibrary));
-        options.put("2", new CheckOutAction(anIOStream, aBookLibrary));
-        options.put("3", new CheckInAction(anIOStream, aBookLibrary));
+        options.put("1", new DisplayAction(anIOStream, aBookLibrary, "book"));
+        options.put("2", new CheckOutAction(anIOStream, aBookLibrary, "book"));
+        options.put("3", new CheckInAction(anIOStream, aBookLibrary, "book"));
 
-        options.put("4", new MovieDisplayAction(anIOStream, aMovieLibrary));
-        options.put("5", new CheckOutAction(anIOStream, aMovieLibrary));
-        options.put("6", new CheckInAction(anIOStream, aMovieLibrary));
+        options.put("4", new DisplayAction(anIOStream, aMovieLibrary, "movie"));
+        options.put("5", new CheckOutAction(anIOStream, aMovieLibrary, "movie"));
+        options.put("6", new CheckInAction(anIOStream, aMovieLibrary, "movie"));
     }
 
     private void displayMenu() {

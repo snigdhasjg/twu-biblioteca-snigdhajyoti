@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 class MenuTest {
 
     @Test
-    void expectsToQuitIfAllUserTypeQuitInLowercase() throws NotABookLibraryException, NotAMovieLibraryException {
+    void expectsToQuitIfAllUserTypeQuitInLowercase() {
         IO mockIO = mock(IO.class);
         Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
 
@@ -30,9 +30,9 @@ class MenuTest {
     }
 
     @Test
-    void expectsToQuitIfAllUserTypeQuitInUppercase() throws NotABookLibraryException, NotAMovieLibraryException {
+    void expectsToQuitIfAllUserTypeQuitInUppercase() {
         IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(),initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
 
         when(mockIO.readInputAsString()).thenReturn("QUIt");
         aMenu.options();
@@ -41,9 +41,9 @@ class MenuTest {
     }
 
     @Test
-    void expectsDisplayingMenuTwoTimes() throws NotABookLibraryException, NotAMovieLibraryException {
+    void expectsDisplayingMenuTwoTimes() {
         IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(),initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
 
         when(mockIO.readInputAsString()).thenReturn("1", "quit");
         aMenu.options();
@@ -51,9 +51,12 @@ class MenuTest {
         final int wantedNumberOfInvocations = 2;
         verify(mockIO, times(wantedNumberOfInvocations))
                 .displayWithNewLine("\n\n.....................MENU.....................");
-        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t1. List All Books");
-        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t2. Checkout");
-        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t3. Return");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t1. List all books");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t2. Checkout book");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t3. Return book");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t4. List all movies");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t5. Checkout movie");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t6. Return movie");
         verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\ttype \"quit\" to exit");
         verify(mockIO, times(wantedNumberOfInvocations))
                 .displayWithNewLine("..............................................");
@@ -61,9 +64,9 @@ class MenuTest {
     }
 
     @Test
-    void expectsDisplayingAllBooksAvailableInLibrary() throws NotABookLibraryException, NotAMovieLibraryException {
+    void expectsDisplayingAllBooksAvailableInLibrary() {
         IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(),initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
 
         when(mockIO.readInputAsString()).thenReturn("1", "quit");
         aMenu.options();
@@ -73,9 +76,9 @@ class MenuTest {
     }
 
     @Test
-    void expectsErrorMessageWhenInvalidInput() throws NotABookLibraryException, NotAMovieLibraryException {
+    void expectsErrorMessageWhenInvalidInput() {
         IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(),initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
 
         when(mockIO.readInputAsString()).thenReturn("invalid option", "quit");
         aMenu.options();
@@ -84,9 +87,9 @@ class MenuTest {
     }
 
     @Test
-    void expectsABookDisappearWhenItHasCheckedOut() throws NotABookLibraryException, NotAMovieLibraryException {
+    void expectsABookDisappearWhenItHasCheckedOut() {
         IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(),initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
 
         when(mockIO.readInputAsString()).thenReturn("1", "2", "gitanjali", "1", "quit");
         aMenu.options();
@@ -98,20 +101,20 @@ class MenuTest {
     }
 
     @Test
-    void expectsACheckedOutBookToCheckInSuccessfully() throws NotABookLibraryException, NotAMovieLibraryException {
+    void expectsACheckedOutBookToCheckInSuccessfully() {
         IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(),initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
 
         when(mockIO.readInputAsString()).thenReturn("2", "2 states", "3", "2 states", "quit");
         aMenu.options();
 
-        verify(mockIO).displayWithNewLine("Thank you for returning the item");
+        verify(mockIO).displayWithNewLine("Thank you for returning the book");
     }
 
     @Test
-    void expectsToShowEmptyLibraryWhenThereIsNoBookWhileShowingTheList() throws NotABookLibraryException, NotAMovieLibraryException {
+    void expectsToShowEmptyLibraryWhenThereIsNoBookWhileShowingTheList() {
         IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, new Library(Collections.EMPTY_LIST),initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, new Library(Collections.EMPTY_LIST), initializeTheMovieLibrary());
 
         when(mockIO.readInputAsString()).thenReturn("1", "quit");
         aMenu.options();
@@ -120,14 +123,14 @@ class MenuTest {
     }
 
     @Test
-    void expectsToShowEmptyLibraryWhenThereIsNoBookWhileCheckingOut() throws NotABookLibraryException, NotAMovieLibraryException {
+    void expectsToShowEmptyLibraryWhenThereIsNoBookWhileCheckingOut() {
         IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, new Library(Collections.EMPTY_LIST),initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, new Library(Collections.EMPTY_LIST), initializeTheMovieLibrary());
 
         when(mockIO.readInputAsString()).thenReturn("2", "quit");
         aMenu.options();
 
-        verify(mockIO).displayWithNewLine("Sorry! No item in Library");
+        verify(mockIO).displayWithNewLine("Sorry! No book in Library");
     }
 
     private Library initializeTheBookLibrary() {
@@ -139,8 +142,8 @@ class MenuTest {
     }
 
     private Library initializeTheMovieLibrary() {
-        Movie movie1 = movie("The Social Network","David Finche",2010,7.7);
-        Movie movie2 = movie("URI","Aditya Dhar",2019,9.1);
-        return new Library(Arrays.asList(movie1,movie2));
+        Movie movie1 = movie("The Social Network", "David Finche", 2010, 7.7);
+        Movie movie2 = movie("URI", "Aditya Dhar", 2019, 9.1);
+        return new Library(Arrays.asList(movie1, movie2));
     }
 }

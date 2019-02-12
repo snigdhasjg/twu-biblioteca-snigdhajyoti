@@ -22,7 +22,8 @@ public class Main {
 
         Movie movie1 = movie("The Social Network","David Finche",2010,7.7);
         Movie movie2 = movie("URI","Aditya Dhar",2019,9.1);
-        Library aMovieLibrary = new Library(Arrays.asList(movie1,movie2));
+        Movie movie3 = movie("Abra ka dabra", "someone", 2050);
+        Library aMovieLibrary = new Library(Arrays.asList(movie1,movie2,movie3));
 
         IO anIOStream = new ConsoleIO(System.out, new Scanner(System.in));
         Menu aMenu = new Menu(anIOStream, aBookLibrary, aMovieLibrary);

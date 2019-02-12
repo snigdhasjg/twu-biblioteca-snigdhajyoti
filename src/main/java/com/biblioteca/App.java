@@ -17,7 +17,7 @@ class App {
         this.aMenu = aMenu;
     }
 
-    void start() throws NotABookLibraryException, NotAMovieLibraryException {
+    void start(){
         welcome();
         aMenu.options();
     }

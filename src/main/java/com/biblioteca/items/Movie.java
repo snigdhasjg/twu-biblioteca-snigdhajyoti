@@ -5,13 +5,17 @@ public class Movie implements LibraryItems {
     private final String name;
     private final String director;
     private final int yearOfRelease;
-    private final double rating;
+    private final String rating;
 
     public static Movie movie(String name, String director, int yearOfRelease, double rating) {
-        return new Movie(name, director, yearOfRelease, rating);
+        return new Movie(name, director, yearOfRelease, "" + rating);
     }
 
-    private Movie(String name, String director, int yearOfRelease, double rating) {
+    public static Movie movie(String name, String director, int yearOfRelease) {
+        return new Movie(name ,director, yearOfRelease, "unrated");
+    }
+
+    private Movie(String name, String director, int yearOfRelease, String rating) {
         this.name = name;
         this.director = director;
         this.yearOfRelease = yearOfRelease;
@@ -32,6 +36,6 @@ public class Movie implements LibraryItems {
     }
 
     public String rating() {
-        return "" + rating;
+        return rating;
     }
 }
