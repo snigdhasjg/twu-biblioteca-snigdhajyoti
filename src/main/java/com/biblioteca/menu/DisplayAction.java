@@ -24,11 +24,15 @@ class DisplayAction implements Actionable {
     private final IO anIOStream;
     private final Library aLibrary;
     private final String contentType;
+    private BookView bookView;
+    private MovieView movieView;
 
     DisplayAction(IO anIOStream, Library aLibrary, String contentType) {
         this.anIOStream = anIOStream;
         this.aLibrary = aLibrary;
         this.contentType = contentType;
+        bookView = new BookView();
+        movieView = new MovieView();
     }
 
     @Override
@@ -47,48 +51,16 @@ class DisplayAction implements Actionable {
     }
 
     private void display(List<LibraryItem> allItems, View view) {
-        anIOStream.displayWithNewLine(header(view));
-        anIOStream.displayWithNewLine(something(length()));
+        anIOStream.displayWithNewLine(view.header());
+        anIOStream.displayWithNewLine(horizontalLine(view.length()));
         for (LibraryItem eachItem : allItems) {
-            String movieDetails = details(eachItem);
-            anIOStream.displayWithNewLine(movieDetails);
+            String details = view.details(eachItem);
+            anIOStream.displayWithNewLine(details);
         }
     }
 
-    private Integer length() {
-        if(isBook()) {
-            return  46;
-        }
-        if(isMovie()) {
-            return  70;
-        }
-        return 0;
-    }
-
-    private String something(Integer length) {
+    private String horizontalLine(Integer length) {
         return new String(new char[length]).replace("\0", "-");
-    }
-
-    private String details(LibraryItem item) {
-        if(isBook()) {
-            Book aBook = (Book) item;
-            return String.format(BOOK_DETAILS_FORMAT, aBook.title(), aBook.author(), aBook.year());
-        }
-        if(isMovie()) {
-            Movie aMovie = (Movie) item;
-            return String.format(MOVIE_DETAILS_FORMAT, aMovie.title(), aMovie.director(), aMovie.year(), aMovie.rating());
-        }
-        return "";
-    }
-
-    private String header(View view) {
-        if(isBook()) {
-            return view.header();
-        }
-        if(isMovie()) {
-            return view.header();
-        }
-        return "";
     }
 
     private boolean isBook() {
@@ -108,11 +80,29 @@ class DisplayAction implements Actionable {
         public String header() {
             return String.format(BOOK_DETAILS_FORMAT, BOOK_NAME, AUTHOR, PUBLICATION_YEAR);
         }
+
+        public String details(LibraryItem item) {
+            Book aBook = (Book) item;
+            return String.format(BOOK_DETAILS_FORMAT, aBook.title(), aBook.author(), aBook.year());
+        }
+
+        public Integer length() {
+            return 46;
+        }
     }
 
     private class MovieView implements View {
         public String header() {
             return String.format(MOVIE_DETAILS_FORMAT, MOVIE_NAME, DIRECTOR, YEAR, RATING);
+        }
+
+        public String details(LibraryItem item) {
+            Movie aMovie = (Movie) item;
+            return String.format(MOVIE_DETAILS_FORMAT, aMovie.title(), aMovie.director(), aMovie.year(), aMovie.rating());
+        }
+
+        public Integer length() {
+            return 70;
         }
     }
 }
