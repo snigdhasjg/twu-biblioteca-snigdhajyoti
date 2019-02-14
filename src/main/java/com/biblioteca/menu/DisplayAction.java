@@ -43,19 +43,10 @@ class DisplayAction implements Actionable {
         }
         List<LibraryItem> availableItems = aLibrary.availableItems();
         if (isBook()) {
-            display(availableItems, new BookView());
+            bookView.display(availableItems, anIOStream);
         }
         if (isMovie()) {
-            display(availableItems, new MovieView());
-        }
-    }
-
-    private void display(List<LibraryItem> items, View view) {
-        anIOStream.displayWithNewLine(view.header());
-        anIOStream.horizontalLine(view.length());
-        for (LibraryItem item : items) {
-            String details = view.details(item);
-            anIOStream.displayWithNewLine(details);
+            movieView.display(availableItems, anIOStream);
         }
     }
 
@@ -85,6 +76,15 @@ class DisplayAction implements Actionable {
         public Integer length() {
             return 46;
         }
+
+        private void display(List<LibraryItem> items, IO io) {
+            io.displayWithNewLine(header());
+            io.horizontalLine(length());
+            for (LibraryItem item : items) {
+                String details = details(item);
+                io.displayWithNewLine(details);
+            }
+        }
     }
 
     private class MovieView implements View {
@@ -99,6 +99,15 @@ class DisplayAction implements Actionable {
 
         public Integer length() {
             return 70;
+        }
+
+        private void display(List<LibraryItem> items, IO io) {
+            io.displayWithNewLine(header());
+            io.horizontalLine(length());
+            for (LibraryItem item : items) {
+                String details = details(item);
+                io.displayWithNewLine(details);
+            }
         }
     }
 }
