@@ -40,7 +40,7 @@ class DisplayAction implements Actionable {
         List<LibraryItems> allItems = aLibrary.listOfAvailableItems();
         if (isBook()) {
             anIOStream.displayWithNewLine(header());
-            anIOStream.displayWithNewLine(new String(new char[46]).replace("\0", "-"));
+            anIOStream.displayWithNewLine(something(length()));
             for (LibraryItems eachItem : allItems) {
                 String bookDetails = details(eachItem);
                 anIOStream.displayWithNewLine(bookDetails);
@@ -48,12 +48,26 @@ class DisplayAction implements Actionable {
         }
         if (isMovie()) {
             anIOStream.displayWithNewLine(header());
-            anIOStream.displayWithNewLine(new String(new char[70]).replace("\0", "-"));
+            anIOStream.displayWithNewLine(something(length()));
             for (LibraryItems eachItem : allItems) {
                 String movieDetails = details(eachItem);
                 anIOStream.displayWithNewLine(movieDetails);
             }
         }
+    }
+
+    private Integer length() {
+        if(isBook()) {
+            return  46;
+        }
+        if(isMovie()) {
+            return  70;
+        }
+        return 0;
+    }
+
+    private String something(Integer length) {
+        return new String(new char[length]).replace("\0", "-");
     }
 
     private String details(LibraryItems item) {
