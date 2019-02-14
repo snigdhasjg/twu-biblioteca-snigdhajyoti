@@ -39,15 +39,15 @@ class DisplayAction implements Actionable {
         }
         List<LibraryItem> allItems = aLibrary.availableItems();
         if (isBook()) {
-            display(allItems);
+            display(allItems, new BookView());
         }
         if (isMovie()) {
-            display(allItems);
+            display(allItems, new MovieView());
         }
     }
 
-    private void display(List<LibraryItem> allItems) {
-        anIOStream.displayWithNewLine(header());
+    private void display(List<LibraryItem> allItems, View view) {
+        anIOStream.displayWithNewLine(header(view));
         anIOStream.displayWithNewLine(something(length()));
         for (LibraryItem eachItem : allItems) {
             String movieDetails = details(eachItem);
@@ -81,12 +81,12 @@ class DisplayAction implements Actionable {
         return "";
     }
 
-    private String header() {
+    private String header(View view) {
         if(isBook()) {
-            return String.format(BOOK_DETAILS_FORMAT, BOOK_NAME, AUTHOR, PUBLICATION_YEAR);
+            return view.header();
         }
         if(isMovie()) {
-            return String.format(MOVIE_DETAILS_FORMAT, MOVIE_NAME, DIRECTOR, YEAR, RATING);
+            return view.header();
         }
         return "";
     }
@@ -102,5 +102,17 @@ class DisplayAction implements Actionable {
     @Override
     public String displayName() {
         return String.format(LIST_ALL, contentType);
+    }
+
+    private class BookView implements View {
+        public String header() {
+            return String.format(BOOK_DETAILS_FORMAT, BOOK_NAME, AUTHOR, PUBLICATION_YEAR);
+        }
+    }
+
+    private class MovieView implements View {
+        public String header() {
+            return String.format(MOVIE_DETAILS_FORMAT, MOVIE_NAME, DIRECTOR, YEAR, RATING);
+        }
     }
 }
