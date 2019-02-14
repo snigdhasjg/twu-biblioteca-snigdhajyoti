@@ -42,8 +42,7 @@ class DisplayAction implements Actionable {
             anIOStream.displayWithNewLine(header());
             anIOStream.displayWithNewLine(new String(new char[46]).replace("\0", "-"));
             for (LibraryItems eachItem : allItems) {
-                Book aBook = (Book) eachItem;
-                String bookDetails = String.format(BOOK_DETAILS_FORMAT, aBook.title(), aBook.author(), aBook.year());
+                String bookDetails = details(eachItem);
                 anIOStream.displayWithNewLine(bookDetails);
             }
         }
@@ -51,11 +50,22 @@ class DisplayAction implements Actionable {
             anIOStream.displayWithNewLine(header());
             anIOStream.displayWithNewLine(new String(new char[70]).replace("\0", "-"));
             for (LibraryItems eachItem : allItems) {
-                Movie aMovie = (Movie) eachItem;
-                String movieDetails = String.format(MOVIE_DETAILS_FORMAT, aMovie.title(), aMovie.director(), aMovie.year(), aMovie.rating());
+                String movieDetails = details(eachItem);
                 anIOStream.displayWithNewLine(movieDetails);
             }
         }
+    }
+
+    private String details(LibraryItems item) {
+        if(isBook()) {
+            Book aBook = (Book) item;
+            return String.format(BOOK_DETAILS_FORMAT, aBook.title(), aBook.author(), aBook.year());
+        }
+        if(isMovie()) {
+            Movie aMovie = (Movie) item;
+            return String.format(MOVIE_DETAILS_FORMAT, aMovie.title(), aMovie.director(), aMovie.year(), aMovie.rating());
+        }
+        return "";
     }
 
     private String header() {
