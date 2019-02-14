@@ -1,5 +1,5 @@
 package com.biblioteca.items;
 
-public interface LibraryItems {
+public interface LibraryItem {
     String title();
 }

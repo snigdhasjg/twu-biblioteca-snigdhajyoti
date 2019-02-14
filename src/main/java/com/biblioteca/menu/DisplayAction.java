@@ -3,7 +3,7 @@ package com.biblioteca.menu;
 import com.biblioteca.items.Book;
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
-import com.biblioteca.items.LibraryItems;
+import com.biblioteca.items.LibraryItem;
 import com.biblioteca.items.Movie;
 
 import java.util.List;
@@ -37,22 +37,21 @@ class DisplayAction implements Actionable {
             anIOStream.displayWithNewLine(String.format(EMPTY_LIBRARY, contentType));
             return;
         }
-        List<LibraryItems> allItems = aLibrary.listOfAvailableItems();
+        List<LibraryItem> allItems = aLibrary.availableItems();
         if (isBook()) {
-            anIOStream.displayWithNewLine(header());
-            anIOStream.displayWithNewLine(something(length()));
-            for (LibraryItems eachItem : allItems) {
-                String bookDetails = details(eachItem);
-                anIOStream.displayWithNewLine(bookDetails);
-            }
+            display(allItems);
         }
         if (isMovie()) {
-            anIOStream.displayWithNewLine(header());
-            anIOStream.displayWithNewLine(something(length()));
-            for (LibraryItems eachItem : allItems) {
-                String movieDetails = details(eachItem);
-                anIOStream.displayWithNewLine(movieDetails);
-            }
+            display(allItems);
+        }
+    }
+
+    private void display(List<LibraryItem> allItems) {
+        anIOStream.displayWithNewLine(header());
+        anIOStream.displayWithNewLine(something(length()));
+        for (LibraryItem eachItem : allItems) {
+            String movieDetails = details(eachItem);
+            anIOStream.displayWithNewLine(movieDetails);
         }
     }
 
@@ -70,7 +69,7 @@ class DisplayAction implements Actionable {
         return new String(new char[length]).replace("\0", "-");
     }
 
-    private String details(LibraryItems item) {
+    private String details(LibraryItem item) {
         if(isBook()) {
             Book aBook = (Book) item;
             return String.format(BOOK_DETAILS_FORMAT, aBook.title(), aBook.author(), aBook.year());

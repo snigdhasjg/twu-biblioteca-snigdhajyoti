@@ -1,7 +1,7 @@
 package com.biblioteca.items;
 
 //Represents single a cinema film
-public class Movie implements LibraryItems {
+public class Movie implements LibraryItem {
     private final String name;
     private final String director;
     private final int yearOfRelease;
