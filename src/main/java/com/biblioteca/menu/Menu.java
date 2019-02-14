@@ -40,11 +40,11 @@ public class Menu {
     }
 
     private void setupMenu() {
-        options.put("1", new DisplayAction(anIOStream, aBookLibrary, "book"));
+        options.put("1", DisplayAction.bookDisplayAction(anIOStream, aBookLibrary));
         options.put("2", new CheckOutAction(anIOStream, aBookLibrary, "book"));
         options.put("3", new CheckInAction(anIOStream, aBookLibrary, "book"));
 
-        options.put("4", new DisplayAction(anIOStream, aMovieLibrary, "movie"));
+        options.put("4", DisplayAction.movieDisplayAction(anIOStream, aMovieLibrary));
         options.put("5", new CheckOutAction(anIOStream, aMovieLibrary, "movie"));
         options.put("6", new CheckInAction(anIOStream, aMovieLibrary, "movie"));
     }

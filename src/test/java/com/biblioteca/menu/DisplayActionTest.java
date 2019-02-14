@@ -24,7 +24,7 @@ class DisplayActionTest {
         void expectsDisplayNameListAllBook() {
             IO mockIO = mock(IO.class);
             Library mockLibrary = mock(Library.class);
-            Actionable listOption = new DisplayAction(mockIO, mockLibrary, "book");
+            Actionable listOption = DisplayAction.bookDisplayAction(mockIO, mockLibrary);
 
             assertEquals("List all books", listOption.displayName());
         }
@@ -33,7 +33,7 @@ class DisplayActionTest {
         void expectsEmptyLibraryMessageWhenLibraryIsEmpty() throws NotABookLibraryException, NotAMovieLibraryException {
             IO mockIO = mock(IO.class);
             Library mockLibrary = mock(Library.class);
-            Actionable listOption = new DisplayAction(mockIO, mockLibrary, "book");
+            Actionable listOption = DisplayAction.bookDisplayAction(mockIO, mockLibrary);
 
             when(mockLibrary.isEmpty()).thenReturn(true);
             listOption.execute();
@@ -46,7 +46,7 @@ class DisplayActionTest {
             IO mockIO = mock(IO.class);
             Book aBook = Book.book("HaJaBaRaLa", "Sukumar Roy", 1921);
             Library aLibrary = new Library(Collections.singletonList(aBook));
-            Actionable listOption = new DisplayAction(mockIO, aLibrary, "book");
+            Actionable listOption = DisplayAction.bookDisplayAction(mockIO, aLibrary);
 
             listOption.execute();
 
@@ -63,7 +63,7 @@ class DisplayActionTest {
         void expectsDisplayNameListAllMovie() {
             IO mockIO = mock(IO.class);
             Library mockLibrary = mock(Library.class);
-            Actionable listOption = new DisplayAction(mockIO, mockLibrary, "movie");
+            Actionable listOption = DisplayAction.movieDisplayAction(mockIO, mockLibrary);
 
             assertEquals("List all movies", listOption.displayName());
         }
@@ -72,7 +72,7 @@ class DisplayActionTest {
         void expectsEmptyLibraryMessageWhenLibraryIsEmpty() throws NotABookLibraryException, NotAMovieLibraryException {
             IO mockIO = mock(IO.class);
             Library mockLibrary = mock(Library.class);
-            Actionable listOption = new DisplayAction(mockIO, mockLibrary, "movie");
+            Actionable listOption = DisplayAction.movieDisplayAction(mockIO, mockLibrary);
 
             when(mockLibrary.isEmpty()).thenReturn(true);
             listOption.execute();
@@ -85,7 +85,7 @@ class DisplayActionTest {
             IO mockIO = mock(IO.class);
             Movie movie1 = movie("The Social Network", "David Finche", 2010, 7.7);
             Library aLibrary = new Library(Collections.singletonList(movie1));
-            Actionable listOption = new DisplayAction(mockIO, aLibrary, "movie");
+            Actionable listOption = DisplayAction.movieDisplayAction(mockIO, aLibrary);
 
             listOption.execute();
 
