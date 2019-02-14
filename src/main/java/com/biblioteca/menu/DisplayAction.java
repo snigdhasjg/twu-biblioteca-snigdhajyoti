@@ -38,8 +38,8 @@ class DisplayAction implements Actionable {
             return;
         }
         List<LibraryItems> allItems = aLibrary.listOfAvailableItems();
-        if (contentType.equalsIgnoreCase("book")) {
-            anIOStream.displayWithNewLine(String.format(BOOK_DETAILS_FORMAT, BOOK_NAME, AUTHOR, PUBLICATION_YEAR));
+        if (isBook()) {
+            anIOStream.displayWithNewLine(header());
             anIOStream.displayWithNewLine(new String(new char[46]).replace("\0", "-"));
             for (LibraryItems eachItem : allItems) {
                 Book aBook = (Book) eachItem;
@@ -47,8 +47,8 @@ class DisplayAction implements Actionable {
                 anIOStream.displayWithNewLine(bookDetails);
             }
         }
-        if (contentType.equalsIgnoreCase("movie")) {
-            anIOStream.displayWithNewLine(String.format(MOVIE_DETAILS_FORMAT, MOVIE_NAME, DIRECTOR, YEAR, RATING));
+        if (isMovie()) {
+            anIOStream.displayWithNewLine(header());
             anIOStream.displayWithNewLine(new String(new char[70]).replace("\0", "-"));
             for (LibraryItems eachItem : allItems) {
                 Movie aMovie = (Movie) eachItem;
@@ -56,6 +56,24 @@ class DisplayAction implements Actionable {
                 anIOStream.displayWithNewLine(movieDetails);
             }
         }
+    }
+
+    private String header() {
+        if(isBook()) {
+            return String.format(BOOK_DETAILS_FORMAT, BOOK_NAME, AUTHOR, PUBLICATION_YEAR);
+        }
+        if(isMovie()) {
+            return String.format(MOVIE_DETAILS_FORMAT, MOVIE_NAME, DIRECTOR, YEAR, RATING);
+        }
+        return "";
+    }
+
+    private boolean isBook() {
+        return contentType.equalsIgnoreCase("book");
+    }
+
+    private boolean isMovie() {
+        return contentType.equalsIgnoreCase("movie");
     }
 
     @Override
