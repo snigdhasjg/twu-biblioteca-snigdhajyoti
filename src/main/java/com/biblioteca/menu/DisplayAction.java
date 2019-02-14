@@ -41,26 +41,22 @@ class DisplayAction implements Actionable {
             anIOStream.displayWithNewLine(String.format(EMPTY_LIBRARY, contentType));
             return;
         }
-        List<LibraryItem> allItems = aLibrary.availableItems();
+        List<LibraryItem> availableItems = aLibrary.availableItems();
         if (isBook()) {
-            display(allItems, new BookView());
+            display(availableItems, new BookView());
         }
         if (isMovie()) {
-            display(allItems, new MovieView());
+            display(availableItems, new MovieView());
         }
     }
 
-    private void display(List<LibraryItem> allItems, View view) {
+    private void display(List<LibraryItem> items, View view) {
         anIOStream.displayWithNewLine(view.header());
-        anIOStream.displayWithNewLine(horizontalLine(view.length()));
-        for (LibraryItem eachItem : allItems) {
-            String details = view.details(eachItem);
+        anIOStream.horizontalLine(view.length());
+        for (LibraryItem item : items) {
+            String details = view.details(item);
             anIOStream.displayWithNewLine(details);
         }
-    }
-
-    private String horizontalLine(Integer length) {
-        return new String(new char[length]).replace("\0", "-");
     }
 
     private boolean isBook() {

@@ -5,4 +5,6 @@ public interface IO {
     void display(String message);
     String readInputAsString();
     int readInputAsNumber();
+
+    String horizontalLine(Integer length);
 }

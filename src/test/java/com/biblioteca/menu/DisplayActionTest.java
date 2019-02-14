@@ -51,7 +51,7 @@ class DisplayActionTest {
             listOption.execute();
 
             verify(mockIO).displayWithNewLine("Book Name            Author               Year");
-            verify(mockIO).displayWithNewLine("----------------------------------------------");
+            verify(mockIO).horizontalLine(46);
             verify(mockIO).displayWithNewLine("HaJaBaRaLa           Sukumar Roy          1921");
         }
     }
@@ -90,7 +90,7 @@ class DisplayActionTest {
             listOption.execute();
 
             verify(mockIO).displayWithNewLine("Movie Name           Director             Year                 Rating ");
-            verify(mockIO).displayWithNewLine("----------------------------------------------------------------------");
+            verify(mockIO).horizontalLine(70);
             verify(mockIO).displayWithNewLine("The Social Network   David Finche         2010                 7.7    ");
         }
     }

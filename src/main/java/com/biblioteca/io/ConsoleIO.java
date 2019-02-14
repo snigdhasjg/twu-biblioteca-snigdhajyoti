@@ -32,4 +32,11 @@ public class ConsoleIO implements IO {
     public void display(String message) {
         outputStream.print(message);
     }
+
+    @Override
+    public String horizontalLine(Integer length) {
+        String dashedLine = new String(new char[length]).replace("\0", "-");
+        outputStream.println(dashedLine);
+        return "";
+    }
 }
