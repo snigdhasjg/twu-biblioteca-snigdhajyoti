@@ -13,6 +13,7 @@ public class Menu {
     private static final String DOTTED_LINE = new String(new char[46]).replace("\0", ".");
     private static final String ACTION_DISPLAY_LINE = "\t\t\t%s. %s";
     private static final String QUIT = "quit";
+    private static final String LOGOUT = "logout";
 
     private final IO anIOStream;
     private Map<String, Actionable> options;
@@ -28,6 +29,9 @@ public class Menu {
             displayMenu();
             String inputOption = anIOStream.readInputAsString().trim();
             if (inputOption.equalsIgnoreCase(QUIT)) {
+                System.exit(0);
+            }
+            if(inputOption.equalsIgnoreCase(LOGOUT)){
                 break;
             }
             options.getOrDefault(inputOption, invalidAction).execute();

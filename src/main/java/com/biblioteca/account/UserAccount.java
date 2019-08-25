@@ -1,5 +1,7 @@
 package com.biblioteca.account;
 
+import java.util.Objects;
+
 public class UserAccount implements IAccount {
     private final String libraryNumber;
     private final String password;
@@ -28,6 +30,29 @@ public class UserAccount implements IAccount {
     @Override
     public boolean validate(String _libraryNumber, String _password) {
         return this.libraryNumber.equals(_libraryNumber) && this.password.equals(_password);
+    }
+
+    @Override
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserAccount)) return false;
+        UserAccount that = (UserAccount) o;
+        return libraryNumber.equals(that.libraryNumber) &&
+                password.equals(that.password) &&
+                name.equals(that.name) &&
+                email.equals(that.email) &&
+                phoneNumber.equals(that.phoneNumber) &&
+                accountType == that.accountType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(libraryNumber, password, name, email, phoneNumber, accountType);
     }
 
     @Override

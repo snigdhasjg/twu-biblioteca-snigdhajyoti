@@ -1,5 +1,5 @@
 package com.biblioteca.account;
 
-enum AccountType {
+public enum AccountType {
     customer, librarian
 }
