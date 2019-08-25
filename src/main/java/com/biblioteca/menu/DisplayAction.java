@@ -14,7 +14,7 @@ class DisplayAction implements Actionable {
     private final Library aLibrary;
     private final View view;
 
-    DisplayAction(IO anIOStream, Library aLibrary, View view) {
+    private DisplayAction(IO anIOStream, Library aLibrary, View view) {
         this.anIOStream = anIOStream;
         this.aLibrary = aLibrary;
         this.view = view;

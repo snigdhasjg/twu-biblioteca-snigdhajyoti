@@ -1,8 +1,6 @@
 package com.biblioteca.menu;
 
 import com.biblioteca.Library;
-import com.biblioteca.exception.NotABookLibraryException;
-import com.biblioteca.exception.NotAMovieLibraryException;
 import com.biblioteca.io.IO;
 
 import java.util.HashMap;
