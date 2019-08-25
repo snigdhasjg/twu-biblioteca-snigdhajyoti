@@ -19,7 +19,7 @@ public class Menu {
 
     public Menu(IO anIOStream, Library aBookLibrary, Library aMovieLibrary) {
         this.anIOStream = anIOStream;
-        options = MenuOptionsFactory.getMenuOption(this.anIOStream, aBookLibrary, aMovieLibrary);
+        options = MenuOptionsFactory.getMenuOptionAfterLogin(this.anIOStream, aBookLibrary, aMovieLibrary);
     }
 
     public void options() {

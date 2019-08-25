@@ -19,28 +19,28 @@ class UserAccountTest {
     void shouldReturnTrueWhenWhenCredentialsAreCorrect() {
         String correctLibraryNumber = "123-ABCD";
         String correctPassword = "password";
-        assertTrue(anAccount.login(correctLibraryNumber, correctPassword));
+        assertTrue(anAccount.validate(correctLibraryNumber, correctPassword));
     }
 
     @Test
     void shouldReturnFalseWhenWhenLibraryNumberIsCorrectAndPasswordIsWrong() {
         String correctLibraryNumber = "123-ABCD";
         String wrongPassword = "wrong_password";
-        assertFalse(anAccount.login(correctLibraryNumber, wrongPassword));
+        assertFalse(anAccount.validate(correctLibraryNumber, wrongPassword));
     }
 
     @Test
     void shouldReturnFalseWhenWhenLibraryNumberIsWrongAndPasswordIsCorrect() {
         String wrongLibraryNumber = "wrong_library_number";
         String correctPassword = "password";
-        assertFalse(anAccount.login(wrongLibraryNumber, correctPassword));
+        assertFalse(anAccount.validate(wrongLibraryNumber, correctPassword));
     }
 
     @Test
     void shouldReturnFalseWhenWhenLibraryNumberIsWrongAndPasswordIsWrong() {
         String wrongLibraryNumber = "wrong_library_number";
         String wrongPassword = "wrong_password";
-        assertFalse(anAccount.login(wrongLibraryNumber, wrongPassword));
+        assertFalse(anAccount.validate(wrongLibraryNumber, wrongPassword));
     }
 
     @Test

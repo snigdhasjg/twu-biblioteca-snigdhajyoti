@@ -11,7 +11,7 @@ class MenuOptionsFactory {
     private static final String BOOK = "book";
     private static final String MOVIE = "movie";
 
-    static Map<String, Actionable> getMenuOption(IO anIOStream, Library aBookLibrary, Library aMovieLibrary) {
+    static Map<String, Actionable> getMenuOptionAfterLogin(IO anIOStream, Library aBookLibrary, Library aMovieLibrary) {
         Map<String, Actionable> _options = new HashMap<>();
 
         _options.put("1", DisplayAction.bookDisplayAction(anIOStream, aBookLibrary));

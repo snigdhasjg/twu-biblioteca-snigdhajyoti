@@ -1,4 +1,6 @@
-package com.biblioteca.account;
+package com.biblioteca;
+
+import com.biblioteca.account.IAccount;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class AccountManager {
 
     public IAccount login(String libraryNumber, String password){
         for(IAccount account: allAccounts){
-            if(account.login(libraryNumber,password)){
+            if(account.validate(libraryNumber,password)){
                 return account;
             }
         }

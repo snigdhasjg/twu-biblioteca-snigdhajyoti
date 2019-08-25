@@ -26,7 +26,7 @@ public class UserAccount implements IAccount {
     }
 
     @Override
-    public boolean login(String _libraryNumber, String _password) {
+    public boolean validate(String _libraryNumber, String _password) {
         return this.libraryNumber.equals(_libraryNumber) && this.password.equals(_password);
     }
 
