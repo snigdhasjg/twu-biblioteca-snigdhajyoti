@@ -35,7 +35,3 @@ public class UserAccount implements IAccount {
         return String.format("name= %s\nemail= %s\nphoneNumber= %s", name, email, phoneNumber);
     }
 }
-
-enum AccountType{
-    customer, librarian
-}
