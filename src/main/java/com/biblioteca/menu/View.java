@@ -1,6 +1,5 @@
 package com.biblioteca.menu;
 
-import com.biblioteca.io.IO;
 import com.biblioteca.items.LibraryItem;
 
 import java.util.List;
