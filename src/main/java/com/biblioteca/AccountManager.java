@@ -6,18 +6,31 @@ import java.util.List;
 
 public class AccountManager {
     private List<IAccount> allAccounts;
+    private IAccount currentSession;
 
     AccountManager(List<IAccount> allAccounts){
         this.allAccounts = allAccounts;
     }
 
-    public IAccount login(String libraryNumber, String password){
+    public void login(String libraryNumber, String password){
         for(IAccount account: allAccounts){
             if(account.validate(libraryNumber,password)){
-                return account;
+                currentSession = account;
+                break;
             }
         }
-        return null;
+    }
+
+    public void logout(){
+        currentSession = null;
+    }
+
+    public boolean isLoggedIn(){
+        return currentSession != null;
+    }
+
+    public IAccount currentUser(){
+        return currentSession;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.biblioteca.menu;
 
+import com.biblioteca.AccountManager;
 import com.biblioteca.exception.InvalidItemNameException;
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
@@ -14,11 +15,13 @@ class CheckOutAction implements Actionable {
     private final IO anIOStream;
     private final Library aLibrary;
     private final String contentType;
+    private final AccountManager accountManager;
 
-    CheckOutAction(IO anIOStream, Library aLibrary, String contentType) {
+    CheckOutAction(IO anIOStream, Library aLibrary, String contentType, AccountManager accountManager) {
         this.anIOStream = anIOStream;
         this.aLibrary = aLibrary;
         this.contentType = contentType;
+        this.accountManager = accountManager;
     }
 
     @Override
@@ -30,7 +33,7 @@ class CheckOutAction implements Actionable {
         anIOStream.display(String.format(ENTER_ITEM_NAME, contentType));
         String bookName = anIOStream.readInputAsString();
         try {
-            aLibrary.checkOut(bookName);
+            aLibrary.checkOut(bookName, accountManager.currentUser());
             anIOStream.displayWithNewLine(String.format(SUCCESSFUL_CHECKOUT, contentType));
         } catch (InvalidItemNameException exception) {
             anIOStream.displayWithNewLine(String.format(ITEM_NOT_AVAILABLE, contentType));

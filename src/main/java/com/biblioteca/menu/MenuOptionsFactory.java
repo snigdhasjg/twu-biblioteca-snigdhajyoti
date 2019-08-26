@@ -1,5 +1,6 @@
 package com.biblioteca.menu;
 
+import com.biblioteca.AccountManager;
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
 
@@ -11,18 +12,29 @@ class MenuOptionsFactory {
     private static final String BOOK = "book";
     private static final String MOVIE = "movie";
 
-    static Map<String, Actionable> getMenuOptionAfterLogin(IO anIOStream, Library aBookLibrary, Library aMovieLibrary) {
+    static Map<String, Actionable> getMenuOptionAfterLogin(IO anIOStream, Library aBookLibrary, Library aMovieLibrary, AccountManager accountManager) {
         Map<String, Actionable> _options = new HashMap<>();
 
         _options.put("1", DisplayAction.bookDisplayAction(anIOStream, aBookLibrary));
-        _options.put("2", new CheckOutAction(anIOStream, aBookLibrary, BOOK));
-        _options.put("3", new CheckInAction(anIOStream, aBookLibrary, BOOK));
+        _options.put("2", new CheckOutAction(anIOStream, aBookLibrary, BOOK, accountManager));
+        _options.put("3", new CheckInAction(anIOStream, aBookLibrary, BOOK, accountManager));
 
         _options.put("4", DisplayAction.movieDisplayAction(anIOStream, aMovieLibrary));
-        _options.put("5", new CheckOutAction(anIOStream, aMovieLibrary, MOVIE));
-        _options.put("6", new CheckInAction(anIOStream, aMovieLibrary, MOVIE));
+        _options.put("5", new CheckOutAction(anIOStream, aMovieLibrary, MOVIE, accountManager));
+        _options.put("6", new CheckInAction(anIOStream, aMovieLibrary, MOVIE, accountManager));
 
         return _options;
     }
 
+    static Map<String, Actionable> getMenuOptionBeforeLogin(IO anIOStream, Library aBookLibrary, Library aMovieLibrary, AccountManager accountManager) {
+        Map<String, Actionable> _options = new HashMap<>();
+
+        _options.put("1", DisplayAction.bookDisplayAction(anIOStream, aBookLibrary));
+
+        _options.put("2", DisplayAction.movieDisplayAction(anIOStream, aMovieLibrary));
+
+        _options.put("3", new LoginMenu(anIOStream, accountManager));
+
+        return _options;
+    }
 }

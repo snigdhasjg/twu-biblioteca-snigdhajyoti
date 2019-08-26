@@ -6,7 +6,6 @@ import com.biblioteca.io.ConsoleIO;
 import com.biblioteca.io.IO;
 import com.biblioteca.items.Book;
 import com.biblioteca.items.Movie;
-import com.biblioteca.menu.LoginMenu;
 import com.biblioteca.menu.Menu;
 
 import java.util.Arrays;
@@ -34,10 +33,8 @@ public class Main {
         AccountManager accountManager = new AccountManager(Arrays.asList(customer1, customer2, librarian));
 
         IO anIOStream = new ConsoleIO(System.out, new Scanner(System.in));
-        LoginMenu aLoginMenu = new LoginMenu(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
-        Menu aMenu = new Menu(anIOStream, aBookLibrary, aMovieLibrary);
+        Menu aMenu = new Menu(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
 
-
-        new App(anIOStream, aLoginMenu,aMenu).start();
+        new App(anIOStream, aMenu).start();
     }
 }

@@ -13,7 +13,6 @@ import java.util.Map;
 public class Library {
 
     private List<LibraryItem> availableItems;
-    private IAccount accountSession;
     private Map<LibraryItem, IAccount> checkedOutItems;
 
     public Library(List<LibraryItem> listOfItems) {
@@ -21,22 +20,18 @@ public class Library {
         this.checkedOutItems = new HashMap<>();
     }
 
-    public void setSession(IAccount accountSession){
-        this.accountSession = accountSession;
-    }
-
     public List<LibraryItem> availableItems() {
         return availableItems;
     }
 
-    public void checkOut(String itemName) throws InvalidItemNameException {
-        LibraryItem searchedItem = searchAvilableItem(itemName);
+    public void checkOut(String itemName, IAccount accountSession) throws InvalidItemNameException {
+        LibraryItem searchedItem = searchAvailableItem(itemName);
         availableItems.remove(searchedItem);
         checkedOutItems.put(searchedItem, accountSession);
     }
 
-    public void checkIn(String itemName) throws InvalidItemNameException {
-        LibraryItem searchedItem = searchCheckedOutItem(itemName);
+    public void checkIn(String itemName, IAccount accountSession) throws InvalidItemNameException {
+        LibraryItem searchedItem = searchCheckedOutItem(itemName, accountSession);
         checkedOutItems.remove(searchedItem);
         availableItems.add(searchedItem);
     }
@@ -45,7 +40,7 @@ public class Library {
         return availableItems.size() == 0;
     }
 
-    private LibraryItem searchAvilableItem(String itemName) throws InvalidItemNameException {
+    private LibraryItem searchAvailableItem(String itemName) throws InvalidItemNameException {
         for (LibraryItem eachItem : availableItems) {
             String eachItemTitle = eachItem.title();
             if (eachItemTitle.equalsIgnoreCase(itemName)) {
@@ -55,7 +50,7 @@ public class Library {
         throw new InvalidItemNameException();
     }
 
-    private LibraryItem searchCheckedOutItem(String itemName) throws InvalidItemNameException{
+    private LibraryItem searchCheckedOutItem(String itemName, IAccount accountSession) throws InvalidItemNameException{
         for(LibraryItem eachItem: checkedOutItems.keySet()){
             String eachItemTitle = eachItem.title();
             if (eachItemTitle.equalsIgnoreCase(itemName)) {

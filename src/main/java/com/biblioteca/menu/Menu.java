@@ -1,6 +1,8 @@
 package com.biblioteca.menu;
 
+import com.biblioteca.AccountManager;
 import com.biblioteca.Library;
+import com.biblioteca.account.AccountType;
 import com.biblioteca.io.IO;
 
 import java.util.Map;
@@ -13,32 +15,39 @@ public class Menu {
     private static final String DOTTED_LINE = new String(new char[46]).replace("\0", ".");
     private static final String ACTION_DISPLAY_LINE = "\t\t\t%s. %s";
     private static final String QUIT = "quit";
-    private static final String LOGOUT = "logout";
 
+    private AccountType accountType;
     private final IO anIOStream;
-    private Map<String, Actionable> options;
+    private final Library aBookLibrary;
+    private final Library aMovieLibrary;
+    private final AccountManager accountManager;
 
-    public Menu(IO anIOStream, Library aBookLibrary, Library aMovieLibrary) {
+    public Menu(IO anIOStream, Library aBookLibrary, Library aMovieLibrary, AccountManager accountManager) {
         this.anIOStream = anIOStream;
-        options = MenuOptionsFactory.getMenuOptionAfterLogin(this.anIOStream, aBookLibrary, aMovieLibrary);
+        this.aBookLibrary = aBookLibrary;
+        this.aMovieLibrary = aMovieLibrary;
+        this.accountManager = accountManager;
     }
 
     public void options() {
         InvalidAction invalidAction = new InvalidAction(anIOStream);
         while (true) {
-            displayMenu();
+            Map<String, Actionable> options;
+            if(accountManager.isLoggedIn()) {
+                options = MenuOptionsFactory.getMenuOptionAfterLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
+            }else{
+                options = MenuOptionsFactory.getMenuOptionBeforeLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
+            }
+            displayMenu(options);
             String inputOption = anIOStream.readInputAsString().trim();
             if (inputOption.equalsIgnoreCase(QUIT)) {
-                System.exit(0);
-            }
-            if(inputOption.equalsIgnoreCase(LOGOUT)){
                 break;
             }
             options.getOrDefault(inputOption, invalidAction).execute();
         }
     }
 
-    private void displayMenu() {
+    private void displayMenu(Map<String, Actionable> options) {
         anIOStream.displayWithNewLine(MENU_LINE);
 
         options.forEach((key, action) -> anIOStream.displayWithNewLine(
@@ -47,5 +56,13 @@ public class Menu {
         anIOStream.displayWithNewLine("\t\t\t" + TYPE_QUIT_TO_EXIT);
         anIOStream.displayWithNewLine(DOTTED_LINE);
         anIOStream.display(ENTER_YOUR_CHOICE);
+    }
+
+    AccountType getAccountType() {
+        return accountType;
+    }
+
+    void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
     }
 }

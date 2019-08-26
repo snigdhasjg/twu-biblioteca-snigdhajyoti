@@ -14,7 +14,7 @@ class AppTest {
     void expectWelcomeMessageToBeWelcomeToBiblioteca() throws NotABookLibraryException, NotAMovieLibraryException {
         IO mockConsole = mock(IO.class);
         Menu mockMenu = mock(Menu.class);
-        App bibliotecaApp = new App(mockConsole, mockMenu);
+        App bibliotecaApp = new App(mockConsole);
 
         when(mockConsole.readInputAsString()).thenReturn("quit");
         bibliotecaApp.start();
@@ -26,7 +26,7 @@ class AppTest {
     void expectsAllActionsIsDoneByMenu() throws NotABookLibraryException, NotAMovieLibraryException {
         IO mockIO = mock(IO.class);
         Menu mockMenu = mock(Menu.class);
-        App bibliotecaApp = new App(mockIO, mockMenu);
+        App bibliotecaApp = new App(mockIO);
 
         bibliotecaApp.start();
         verify(mockMenu).options();

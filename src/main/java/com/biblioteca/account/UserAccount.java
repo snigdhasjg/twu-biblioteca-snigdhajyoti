@@ -38,6 +38,11 @@ public class UserAccount implements IAccount {
     }
 
     @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserAccount)) return false;
