@@ -1,11 +1,12 @@
 package com.biblioteca.menu;
 
-import com.biblioteca.exception.NotABookLibraryException;
-import com.biblioteca.exception.NotAMovieLibraryException;
-import com.biblioteca.items.Book;
+import com.biblioteca.AccountManager;
 import com.biblioteca.Library;
+import com.biblioteca.account.IAccount;
 import com.biblioteca.io.IO;
+import com.biblioteca.items.Book;
 import com.biblioteca.items.Movie;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -14,14 +15,22 @@ import java.util.Collections;
 import static com.biblioteca.items.Book.book;
 import static com.biblioteca.items.Movie.movie;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
 
 class MenuTest {
+    private IO mockIO;
+    private AccountManager accountManager;
+    private IAccount anUserAccount;
+
+    @BeforeEach
+    void setUp() {
+        mockIO = mock(IO.class);
+        anUserAccount = mock(IAccount.class);
+        accountManager = mock(AccountManager.class);
+    }
 
     @Test
     void expectsToQuitIfAllUserTypeQuitInLowercase() {
-        IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary(), accountManager);
 
         when(mockIO.readInputAsString()).thenReturn("quit");
         aMenu.options();
@@ -31,8 +40,7 @@ class MenuTest {
 
     @Test
     void expectsToQuitIfAllUserTypeQuitInUppercase() {
-        IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary(), accountManager);
 
         when(mockIO.readInputAsString()).thenReturn("QUIt");
         aMenu.options();
@@ -42,10 +50,10 @@ class MenuTest {
 
     @Test
     void expectsDisplayingMenuTwoTimes() {
-        IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary(), accountManager);
 
         when(mockIO.readInputAsString()).thenReturn("1", "quit");
+        when(accountManager.isLoggedIn()).thenReturn(true);
         aMenu.options();
 
         final int wantedNumberOfInvocations = 2;
@@ -65,8 +73,7 @@ class MenuTest {
 
     @Test
     void expectsDisplayingAllBooksAvailableInLibrary() {
-        IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary(), accountManager);
 
         when(mockIO.readInputAsString()).thenReturn("1", "quit");
         aMenu.options();
@@ -77,8 +84,7 @@ class MenuTest {
 
     @Test
     void expectsErrorMessageWhenInvalidInput() {
-        IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary(), accountManager);
 
         when(mockIO.readInputAsString()).thenReturn("invalid option", "quit");
         aMenu.options();
@@ -88,9 +94,9 @@ class MenuTest {
 
     @Test
     void expectsABookDisappearWhenItHasCheckedOut() {
-        IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary(), accountManager);
 
+        when(accountManager.isLoggedIn()).thenReturn(true);
         when(mockIO.readInputAsString()).thenReturn("1", "2", "gitanjali", "1", "quit");
         aMenu.options();
 
@@ -102,9 +108,10 @@ class MenuTest {
 
     @Test
     void expectsACheckedOutBookToCheckInSuccessfully() {
-        IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary(), accountManager);
 
+        when(accountManager.isLoggedIn()).thenReturn(true);
+        when(accountManager.currentUser()).thenReturn(anUserAccount);
         when(mockIO.readInputAsString()).thenReturn("2", "2 states", "3", "2 states", "quit");
         aMenu.options();
 
@@ -113,8 +120,7 @@ class MenuTest {
 
     @Test
     void expectsToShowEmptyLibraryWhenThereIsNoBookWhileShowingTheList() {
-        IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, new Library(Collections.EMPTY_LIST), initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, new Library(Collections.EMPTY_LIST), initializeTheMovieLibrary(), accountManager);
 
         when(mockIO.readInputAsString()).thenReturn("1", "quit");
         aMenu.options();
@@ -124,9 +130,9 @@ class MenuTest {
 
     @Test
     void expectsToShowEmptyLibraryWhenThereIsNoBookWhileCheckingOut() {
-        IO mockIO = mock(IO.class);
-        Menu aMenu = new Menu(mockIO, new Library(Collections.EMPTY_LIST), initializeTheMovieLibrary());
+        Menu aMenu = new Menu(mockIO, new Library(Collections.EMPTY_LIST), initializeTheMovieLibrary(), accountManager);
 
+        when(accountManager.isLoggedIn()).thenReturn(true);
         when(mockIO.readInputAsString()).thenReturn("2", "quit");
         aMenu.options();
 

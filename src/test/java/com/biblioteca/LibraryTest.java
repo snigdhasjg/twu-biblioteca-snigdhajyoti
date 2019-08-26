@@ -1,9 +1,11 @@
 package com.biblioteca;
 
+import com.biblioteca.account.IAccount;
 import com.biblioteca.exception.InvalidItemNameException;
 import com.biblioteca.items.Book;
 import com.biblioteca.items.LibraryItem;
 import com.biblioteca.items.Movie;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,8 +15,19 @@ import java.util.List;
 import static com.biblioteca.items.Book.*;
 import static com.biblioteca.items.Movie.movie;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class LibraryTest {
+    private AccountManager accountManager;
+    private IAccount anUserAccount;
+
+    @BeforeEach
+    void setUp() {
+        accountManager = mock(AccountManager.class);
+        anUserAccount = mock(IAccount.class);
+    }
+
     @Test
     void expectsADisplayOfAListOfBooksPresentsInLibrary() {
         List<LibraryItem> expectedBookList = listOf2Books();
@@ -31,7 +44,7 @@ class LibraryTest {
         List<LibraryItem> initialBooks = listOf2Books();
         Library aLibrary = new Library(initialBooks);
 
-        aLibrary.checkOut("gitanjali");
+        aLibrary.checkOut("gitanjali", accountManager.currentUser());
         List<LibraryItem> allAvailableBooks = aLibrary.availableItems();
 
         assertEquals(1, allAvailableBooks.size());
@@ -50,7 +63,7 @@ class LibraryTest {
         List<LibraryItem> initialBooks = new ArrayList<>(Arrays.asList(book1, book2));
         Library aLibrary = new Library(initialBooks);
 
-        aLibrary.checkOut("Head First JAVA");
+        aLibrary.checkOut("Head First JAVA", accountManager.currentUser());
         List<LibraryItem> allAvailableBooks = aLibrary.availableItems();
         initialBooks.remove(book1);
 
@@ -62,7 +75,7 @@ class LibraryTest {
         List<LibraryItem> initialBook = listOf2Books();
         Library aLibrary = new Library(initialBook);
 
-        assertThrows(InvalidItemNameException.class, () -> aLibrary.checkOut("some"));
+        assertThrows(InvalidItemNameException.class, () -> aLibrary.checkOut("some", accountManager.currentUser()));
     }
 
     @Test
@@ -70,7 +83,7 @@ class LibraryTest {
         List<LibraryItem> initialBook = listOf2Books();
         Library aLibrary = new Library(initialBook);
 
-        assertDoesNotThrow(() -> aLibrary.checkOut("gitanjali"));
+        assertDoesNotThrow(() -> aLibrary.checkOut("gitanjali", accountManager.currentUser()));
     }
 
     @Test
@@ -78,8 +91,9 @@ class LibraryTest {
         List<LibraryItem> initialBook = listOf2Books();
         Library aLibrary = new Library(initialBook);
 
-        assertDoesNotThrow(() -> aLibrary.checkOut("gitanjali"));
-        assertDoesNotThrow(() -> aLibrary.checkIn("gitanjali"));
+        when(accountManager.currentUser()).thenReturn(anUserAccount);
+        assertDoesNotThrow(() -> aLibrary.checkOut("gitanjali", accountManager.currentUser()));
+        assertDoesNotThrow(() -> aLibrary.checkIn("gitanjali", accountManager.currentUser()));
     }
 
     @Test
@@ -98,7 +112,7 @@ class LibraryTest {
         List<LibraryItem> initialMovies = listOf2Movies();
         Library aLibrary = new Library(initialMovies);
 
-        aLibrary.checkOut("uri");
+        aLibrary.checkOut("uri", accountManager.currentUser());
         List<LibraryItem> allAvailableMovies = aLibrary.availableItems();
 
         assertEquals(1, allAvailableMovies.size());
@@ -112,7 +126,7 @@ class LibraryTest {
         List<LibraryItem> initialMovies = new ArrayList<>(Arrays.asList(movie1, movie2));
         Library aLibrary = new Library(initialMovies);
 
-        aLibrary.checkOut("the social network");
+        aLibrary.checkOut("the social network", accountManager.currentUser());
         List<LibraryItem> allAvailableBooks = aLibrary.availableItems();
         initialMovies.remove(movie1);
 

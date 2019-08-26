@@ -1,9 +1,12 @@
 package com.biblioteca.menu;
 
+import com.biblioteca.AccountManager;
+import com.biblioteca.account.IAccount;
 import com.biblioteca.items.Book;
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
 import com.biblioteca.items.Movie;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import java.util.Collections;
@@ -14,27 +17,36 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class CheckInActionTest {
+    private IO mockIO;
+    private AccountManager accountManager;
+    private IAccount anUserAccount;
+
+    @BeforeEach
+    void setUp() {
+        mockIO = mock(IO.class);
+        anUserAccount = mock(IAccount.class);
+        accountManager = mock(AccountManager.class);
+    }
 
     @Nested
     class BookCheckIn {
+
         @Test
         void expectsDisplayNameReturnBook() {
-            IO mockIO = mock(IO.class);
             Library mockLibrary = mock(Library.class);
-            Actionable checkInOption = new CheckInAction(mockIO, mockLibrary, "book");
+            Actionable checkInOption = new CheckInAction(mockIO, mockLibrary, "book", accountManager);
 
             assertEquals("Return book", checkInOption.displayName());
         }
 
-
         @Test
         void expectsUnsuccessfulMessageWhenBookNameIsWrongOrDoesNotBelongsToTheLibrary() {
-            IO mockIO = mock(IO.class);
             Book aBook = book("HaJaBaRaLa", "Sukumar Roy", 1921);
             Library aLibrary = new Library(Collections.singletonList(aBook));
-            Actionable checkInOption = new CheckInAction(mockIO, aLibrary, "book");
+            Actionable checkInOption = new CheckInAction(mockIO, aLibrary, "book", accountManager);
 
             when(mockIO.readInputAsString()).thenReturn("AbC");
+
             checkInOption.execute();
 
             verify(mockIO).displayWithNewLine("That is not a valid book to return");
@@ -42,13 +54,13 @@ class CheckInActionTest {
 
         @Test
         void expectsSuccessfulMessageWhenEnteredBookBelongsToTheLibrary() {
-            IO mockIO = mock(IO.class);
             Book aBook = book("HaJaBaRaLa", "Sukumar Roy", 1921);
             Library aLibrary = new Library(Collections.singletonList(aBook));
-            assertDoesNotThrow(() -> aLibrary.checkOut("HaJaBaRaLa"));
-            Actionable checkInOption = new CheckInAction(mockIO, aLibrary, "book");
+            assertDoesNotThrow(() -> aLibrary.checkOut("HaJaBaRaLa", anUserAccount));
+            Actionable checkInOption = new CheckInAction(mockIO, aLibrary, "book", accountManager);
 
             when(mockIO.readInputAsString()).thenReturn("HaJaBaRaLa");
+            when(accountManager.currentUser()).thenReturn(anUserAccount);
             checkInOption.execute();
 
             verify(mockIO).displayWithNewLine("Thank you for returning the book");
@@ -60,20 +72,17 @@ class CheckInActionTest {
 
         @Test
         void expectsDisplayNameReturnMovie() {
-            IO mockIO = mock(IO.class);
             Library mockLibrary = mock(Library.class);
-            Actionable checkInOption = new CheckInAction(mockIO, mockLibrary, "movie");
+            Actionable checkInOption = new CheckInAction(mockIO, mockLibrary, "movie", accountManager);
 
             assertEquals("Return movie", checkInOption.displayName());
         }
 
-
         @Test
         void expectsUnsuccessfulMessageWhenMovieNameIsWrongOrDoesNotBelongsToTheLibrary() {
-            IO mockIO = mock(IO.class);
             Movie aMovie = movie("URI", "Aditya Dhar", 2019, 9.1);
             Library aLibrary = new Library(Collections.singletonList(aMovie));
-            Actionable checkInOption = new CheckInAction(mockIO, aLibrary, "movie");
+            Actionable checkInOption = new CheckInAction(mockIO, aLibrary, "movie", accountManager);
 
             when(mockIO.readInputAsString()).thenReturn("AbC");
             checkInOption.execute();
@@ -83,16 +92,18 @@ class CheckInActionTest {
 
         @Test
         void expectsSuccessfulMessageWhenEnteredMovieBelongsToTheLibrary() {
-            IO mockIO = mock(IO.class);
             Movie aMovie = movie("URI", "Aditya Dhar", 2019, 9.1);
             Library aLibrary = new Library(Collections.singletonList(aMovie));
-            assertDoesNotThrow(() -> aLibrary.checkOut("uri"));
-            Actionable checkInOption = new CheckInAction(mockIO, aLibrary, "movie");
+            assertDoesNotThrow(() -> aLibrary.checkOut("uri", anUserAccount));
+            Actionable checkInOption = new CheckInAction(mockIO, aLibrary, "movie", accountManager);
 
             when(mockIO.readInputAsString()).thenReturn("uri");
+            when(accountManager.currentUser()).thenReturn(anUserAccount);
             checkInOption.execute();
 
             verify(mockIO).displayWithNewLine("Thank you for returning the movie");
         }
     }
+
+    // TODO need test for many cases
 }

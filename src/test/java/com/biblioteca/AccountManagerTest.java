@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,25 +27,32 @@ class AccountManagerTest {
     @Test
     void shouldReturnMockAccount1WhenMockAccountCredentialsAreCorrect(){
         when(mockAccount1.validate(CREDENTIAL, CREDENTIAL)).thenReturn(true);
+        accountManager.login(CREDENTIAL, CREDENTIAL);
 
-        assertEquals(mockAccount1,accountManager.login(CREDENTIAL, CREDENTIAL));
+        assertTrue(accountManager.isLoggedIn());
+        assertEquals(mockAccount1,accountManager.currentUser());
     }
 
     @Test
     void shouldReturnMockAccount2WhenAccount2CredentialsAreUsed(){
         when(mockAccount1.validate(CREDENTIAL, CREDENTIAL)).thenReturn(false);
         when(mockAccount2.validate(CREDENTIAL, CREDENTIAL)).thenReturn(true);
+        accountManager.login(CREDENTIAL, CREDENTIAL);
 
-        assertEquals(mockAccount2,accountManager.login(CREDENTIAL, CREDENTIAL));
+        assertTrue(accountManager.isLoggedIn());
+        assertEquals(mockAccount2,accountManager.currentUser());
     }
 
     @Test
     void shouldReturnNullWhenNoAccountHasThatCredential(){
         when(mockAccount1.validate(CREDENTIAL, CREDENTIAL)).thenReturn(false);
         when(mockAccount2.validate(CREDENTIAL, CREDENTIAL)).thenReturn(false);
+        accountManager.login(CREDENTIAL, CREDENTIAL);
 
-        assertNull(accountManager.login(CREDENTIAL, CREDENTIAL));
+        assertFalse(accountManager.isLoggedIn());
+        assertNull(accountManager.currentUser());
     }
 
+    // TODO need to add test for logout
 
 }

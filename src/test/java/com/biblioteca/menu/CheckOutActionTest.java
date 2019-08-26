@@ -1,9 +1,12 @@
 package com.biblioteca.menu;
 
+import com.biblioteca.AccountManager;
+import com.biblioteca.account.IAccount;
 import com.biblioteca.items.Book;
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
 import com.biblioteca.items.Movie;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -16,22 +19,31 @@ import static org.mockito.Mockito.*;
 
 class CheckOutActionTest {
 
+    private IO mockIO;
+    private AccountManager accountManager;
+    private IAccount anUserAccount;
+
+    @BeforeEach
+    void setUp() {
+        mockIO = mock(IO.class);
+        anUserAccount = mock(IAccount.class);
+        accountManager = mock(AccountManager.class);
+    }
+
     @Nested
     class BookCheckOut {
         @Test
         void expectsDisplayNameCheckoutBook() {
-            IO mockIO = mock(IO.class);
             Library mockLibrary = mock(Library.class);
-            Actionable checkoutOption = new CheckOutAction(mockIO, mockLibrary, "book");
+            Actionable checkoutOption = new CheckOutAction(mockIO, mockLibrary, "book", accountManager);
 
             assertEquals("Checkout book", checkoutOption.displayName());
         }
 
         @Test
         void expectsEmptyLibraryMessageWhenLibraryIsEmpty() {
-            IO mockIO = mock(IO.class);
             Library mockLibrary = mock(Library.class);
-            Actionable checkoutOption = new CheckOutAction(mockIO, mockLibrary, "book");
+            Actionable checkoutOption = new CheckOutAction(mockIO, mockLibrary, "book", accountManager);
 
             when(mockLibrary.isEmpty()).thenReturn(true);
             checkoutOption.execute();
@@ -41,10 +53,9 @@ class CheckOutActionTest {
 
         @Test
         void expectsSuccessfulCheckout() {
-            IO mockIO = mock(IO.class);
             Book aBook = book("HaJaBaRaLa", "Sukumar Roy", 1921);
             Library aLibrary = new Library(Collections.singletonList(aBook));
-            Actionable checkoutOption = new CheckOutAction(mockIO, aLibrary, "book");
+            Actionable checkoutOption = new CheckOutAction(mockIO, aLibrary, "book", accountManager);
 
             when(mockIO.readInputAsString()).thenReturn("HaJaBaRaLa");
             checkoutOption.execute();
@@ -54,10 +65,9 @@ class CheckOutActionTest {
 
         @Test
         void expectsMessageForWrongBookName() {
-            IO mockIO = mock(IO.class);
             Book aBook = book("HaJaBaRaLa", "Sukumar Roy", 1921);
             Library aLibrary = new Library(Collections.singletonList(aBook));
-            Actionable checkoutOption = new CheckOutAction(mockIO, aLibrary, "book");
+            Actionable checkoutOption = new CheckOutAction(mockIO, aLibrary, "book", accountManager);
 
             when(mockIO.readInputAsString()).thenReturn("HaJaBaRaL");
             checkoutOption.execute();
@@ -71,18 +81,16 @@ class CheckOutActionTest {
 
         @Test
         void expectsDisplayNameCheckoutMovie() {
-            IO mockIO = mock(IO.class);
             Library mockLibrary = mock(Library.class);
-            Actionable checkoutOption = new CheckOutAction(mockIO, mockLibrary, "movie");
+            Actionable checkoutOption = new CheckOutAction(mockIO, mockLibrary, "movie", accountManager);
 
             assertEquals("Checkout movie", checkoutOption.displayName());
         }
 
         @Test
         void expectsEmptyLibraryMessageWhenLibraryIsEmpty() {
-            IO mockIO = mock(IO.class);
             Library mockLibrary = mock(Library.class);
-            Actionable checkoutOption = new CheckOutAction(mockIO, mockLibrary, "movie");
+            Actionable checkoutOption = new CheckOutAction(mockIO, mockLibrary, "movie", accountManager);
 
             when(mockLibrary.isEmpty()).thenReturn(true);
             checkoutOption.execute();
@@ -92,10 +100,9 @@ class CheckOutActionTest {
 
         @Test
         void expectsSuccessfulCheckout() {
-            IO mockIO = mock(IO.class);
             Movie aMovie = movie("URI", "Aditya Dhar", 2019, 9.1);
             Library aLibrary = new Library(Collections.singletonList(aMovie));
-            Actionable checkoutOption = new CheckOutAction(mockIO, aLibrary, "movie");
+            Actionable checkoutOption = new CheckOutAction(mockIO, aLibrary, "movie", accountManager);
 
             when(mockIO.readInputAsString()).thenReturn("uri");
             checkoutOption.execute();
@@ -105,10 +112,9 @@ class CheckOutActionTest {
 
         @Test
         void expectsMessageForWrongBookName() {
-            IO mockIO = mock(IO.class);
             Movie aMovie = movie("URI", "Aditya Dhar", 2019, 9.1);
             Library aLibrary = new Library(Collections.singletonList(aMovie));
-            Actionable checkoutOption = new CheckOutAction(mockIO, aLibrary, "movie");
+            Actionable checkoutOption = new CheckOutAction(mockIO, aLibrary, "movie", accountManager);
 
             when(mockIO.readInputAsString()).thenReturn("uri...");
             checkoutOption.execute();
