@@ -49,7 +49,28 @@ class MenuTest {
     }
 
     @Test
-    void expectsDisplayingMenuTwoTimes() {
+    void expectsDisplayingBeforeLoginMenuTwoTimes() {
+        Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary(), accountManager);
+
+        when(mockIO.readInputAsString()).thenReturn("1", "quit");
+        when(accountManager.isLoggedIn()).thenReturn(false);
+        aMenu.options();
+
+        final int wantedNumberOfInvocations = 2;
+        verify(mockIO, times(wantedNumberOfInvocations))
+                .displayWithNewLine("\n\n.....................MENU.....................");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t1. List all books");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t2. List all movies");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\t3. Log In");
+        verify(mockIO, times(wantedNumberOfInvocations)).displayWithNewLine("\t\t\ttype \"quit\" to exit");
+        verify(mockIO, times(wantedNumberOfInvocations))
+                .displayWithNewLine("..............................................");
+        verify(mockIO, times(wantedNumberOfInvocations)).display("Enter your choice: ");
+    }
+
+
+    @Test
+    void expectsDisplayingAfterLoginMenuTwoTimes() {
         Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary(), accountManager);
 
         when(mockIO.readInputAsString()).thenReturn("1", "quit");
@@ -72,14 +93,19 @@ class MenuTest {
     }
 
     @Test
-    void expectsDisplayingAllBooksAvailableInLibrary() {
+    void expectsDisplayingAllBooksAvailableInLibraryAfterAndBeforeLogIn() {
         Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary(), accountManager);
 
+        when(accountManager.isLoggedIn()).thenReturn(false);
         when(mockIO.readInputAsString()).thenReturn("1", "quit");
         aMenu.options();
 
-        verify(mockIO).displayWithNewLine("Gitanjali            R N Tagore           1910");
-        verify(mockIO).displayWithNewLine("2 States             Chetan Bhagat        2004");
+        when(accountManager.isLoggedIn()).thenReturn(true);
+        when(mockIO.readInputAsString()).thenReturn("1", "quit");
+        aMenu.options();
+
+        verify(mockIO, times(2)).displayWithNewLine("Gitanjali            R N Tagore           1910");
+        verify(mockIO, times(2)).displayWithNewLine("2 States             Chetan Bhagat        2004");
     }
 
     @Test

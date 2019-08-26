@@ -57,12 +57,4 @@ public class Menu {
         anIOStream.displayWithNewLine(DOTTED_LINE);
         anIOStream.display(ENTER_YOUR_CHOICE);
     }
-
-    AccountType getAccountType() {
-        return accountType;
-    }
-
-    void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
 }

@@ -48,7 +48,24 @@ class UserAccountTest {
         String expectedCustomerInfo = "name= John Doe\n" +
                 "email= john.doe@gmail.com\n" +
                 "phoneNumber= 123567890";
+        String expectedName = "John Doe";
         assertEquals(expectedCustomerInfo, anAccount.toString());
+        assertEquals(expectedName,anAccount.getName());
+    }
+
+    @Test
+    void twoAccountShouldBeEqualIfThereDetailsAreSame(){
+        IAccount anotherAccount = UserAccount.customer("123-ABCD", "password", "John Doe",
+                "john.doe@gmail.com", "123567890");
+        assertEquals(anAccount,anotherAccount);
+    }
+
+    @Test
+    void shouldReturnCorrectAccountType(){
+        IAccount anotherAccount = UserAccount.librarian("123-ABCD", "password", "John Doe",
+                "john.doe@gmail.com", "123567890");
+        assertEquals(AccountType.customer,anAccount.getAccountType());
+        assertEquals(AccountType.librarian,anotherAccount.getAccountType());
     }
 
 }

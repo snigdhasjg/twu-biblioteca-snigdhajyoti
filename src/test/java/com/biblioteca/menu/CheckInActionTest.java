@@ -2,6 +2,8 @@ package com.biblioteca.menu;
 
 import com.biblioteca.AccountManager;
 import com.biblioteca.account.IAccount;
+import com.biblioteca.exception.InvalidItemNameException;
+import com.biblioteca.exception.UserDoesNotMatchException;
 import com.biblioteca.items.Book;
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
@@ -9,6 +11,8 @@ import com.biblioteca.items.Movie;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.stubbing.OngoingStubbing;
+
 import java.util.Collections;
 
 import static com.biblioteca.items.Book.book;
@@ -105,5 +109,32 @@ class CheckInActionTest {
         }
     }
 
-    // TODO need test for many cases
+    @Test
+    void expectToAddUserDetailInLibrary(){
+        Library aLibrary = mock(Library.class);
+        Actionable checkInOption = new CheckInAction(mockIO, aLibrary, "book", accountManager);
+
+        String itemName = "HaJaBaRaLa";
+        when(mockIO.readInputAsString()).thenReturn(itemName);
+        when(accountManager.currentUser()).thenReturn(anUserAccount);
+        checkInOption.execute();
+
+        assertDoesNotThrow(()->verify(aLibrary).checkIn(itemName,anUserAccount));
+    }
+
+    @Test
+    void expectUserMismatchException() {
+        String bookName = "HaJaBaRaLa";
+        Book aBook = book(bookName, "Sukumar Roy", 1921);
+        Library aLibrary = new Library(Collections.singletonList(aBook));
+        Actionable checkInOption = new CheckInAction(mockIO, aLibrary, "book", accountManager);
+
+        assertDoesNotThrow(()->aLibrary.checkOut(bookName, anUserAccount));
+        IAccount otherUser = mock(IAccount.class);
+        when(accountManager.currentUser()).thenReturn(otherUser);
+        when(mockIO.readInputAsString()).thenReturn(bookName);
+        checkInOption.execute();
+
+        verify(mockIO).displayWithNewLine("This book doesn't belongs to you");
+    }
 }

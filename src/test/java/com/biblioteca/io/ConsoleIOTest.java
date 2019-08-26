@@ -11,7 +11,7 @@ class ConsoleIOTest {
     @Test
     void expectsDisplayToPrintMessageHello() {
         PrintStream mockOut = mock(PrintStream.class);
-        Scanner aScanner = new Scanner(System.in);
+        Scanner aScanner = new Scanner("");
         ConsoleIO io = new ConsoleIO(mockOut, aScanner);
 
         io.displayWithNewLine("Hello");
@@ -20,9 +20,9 @@ class ConsoleIOTest {
     }
 
     @Test
-    void expects_HorizonatalLine_ToPrint_Dashed_Line_Of_Length_5() {
+    void expectsHorizonatalLineToPrintDashedLineOfLength5() {
         PrintStream mockOut = mock(PrintStream.class);
-        Scanner aScanner = new Scanner(System.in);
+        Scanner aScanner = new Scanner("");
         ConsoleIO io = new ConsoleIO(mockOut, aScanner);
 
         io.horizontalLine(5);
@@ -31,9 +31,9 @@ class ConsoleIOTest {
     }
 
     @Test
-    void expects_HorizonatalLine_ToPrint_Dashed_Line_Of_Length_10() {
+    void expectsHorizonatalLineToPrintDashedLineOfLength10() {
         PrintStream mockOut = mock(PrintStream.class);
-        Scanner aScanner = new Scanner(System.in);
+        Scanner aScanner = new Scanner("");
         ConsoleIO io = new ConsoleIO(mockOut, aScanner);
 
         io.horizontalLine(10);

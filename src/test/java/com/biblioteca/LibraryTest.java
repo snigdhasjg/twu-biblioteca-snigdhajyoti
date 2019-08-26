@@ -2,6 +2,7 @@ package com.biblioteca;
 
 import com.biblioteca.account.IAccount;
 import com.biblioteca.exception.InvalidItemNameException;
+import com.biblioteca.exception.UserDoesNotMatchException;
 import com.biblioteca.items.Book;
 import com.biblioteca.items.LibraryItem;
 import com.biblioteca.items.Movie;
@@ -94,6 +95,17 @@ class LibraryTest {
         when(accountManager.currentUser()).thenReturn(anUserAccount);
         assertDoesNotThrow(() -> aLibrary.checkOut("gitanjali", accountManager.currentUser()));
         assertDoesNotThrow(() -> aLibrary.checkIn("gitanjali", accountManager.currentUser()));
+    }
+
+    @Test
+    void expectsExceptionWhenThereIsCheckInOfACheckedOutBookNotBySameUser() {
+        List<LibraryItem> initialBook = listOf2Books();
+        Library aLibrary = new Library(initialBook);
+        IAccount otherUser = mock(IAccount.class);
+
+        when(accountManager.currentUser()).thenReturn(anUserAccount).thenReturn(otherUser);
+        assertDoesNotThrow(() -> aLibrary.checkOut("gitanjali", accountManager.currentUser()));
+        assertThrows(UserDoesNotMatchException.class,() -> aLibrary.checkIn("gitanjali", accountManager.currentUser()));
     }
 
     @Test

@@ -3,7 +3,7 @@ package com.biblioteca.menu;
 import com.biblioteca.AccountManager;
 import com.biblioteca.io.IO;
 
-public class LoginMenu implements Actionable {
+public class LoginAction implements Actionable {
     private static final String LOG_IN = "Log In";
     private static final String WELCOME = "Welcome";
     private static final String WRONG_CREDENTIAL = "Credentials are wrong\nPlease try again";
@@ -13,7 +13,7 @@ public class LoginMenu implements Actionable {
     private final IO anIOStream;
     private final AccountManager accountManager;
 
-    LoginMenu(IO anIOStream, AccountManager accountManager) {
+    LoginAction(IO anIOStream, AccountManager accountManager) {
         this.anIOStream = anIOStream;
         this.accountManager = accountManager;
     }

@@ -20,4 +20,14 @@ class MovieTest {
         assertEquals("" + rating, aMovie.rating());
     }
 
+    @Test
+    void expectMovieRatingUnratedWhenNoRatingIsProvided(){
+        String movieName = "The Social Network";
+        String director = "David Fincher";
+        int yearOfRelease = 2010;
+        Movie aMovie = movie(movieName, director, yearOfRelease);
+
+        assertEquals("unrated", aMovie.rating());
+    }
+
 }

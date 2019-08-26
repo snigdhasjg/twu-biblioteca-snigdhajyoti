@@ -56,11 +56,6 @@ public class UserAccount implements IAccount {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(libraryNumber, password, name, email, phoneNumber, accountType);
-    }
-
-    @Override
     public String toString() {
         return String.format("name= %s\nemail= %s\nphoneNumber= %s", name, email, phoneNumber);
     }

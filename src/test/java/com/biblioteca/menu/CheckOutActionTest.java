@@ -2,6 +2,7 @@ package com.biblioteca.menu;
 
 import com.biblioteca.AccountManager;
 import com.biblioteca.account.IAccount;
+import com.biblioteca.exception.InvalidItemNameException;
 import com.biblioteca.items.Book;
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
@@ -121,5 +122,18 @@ class CheckOutActionTest {
 
             verify(mockIO).displayWithNewLine("That movie is not available");
         }
+    }
+
+    @Test
+    void expectToAddUserDetailInLibrary(){
+        Library aLibrary = mock(Library.class);
+        Actionable checkoutOption = new CheckOutAction(mockIO, aLibrary, "book", accountManager);
+
+        String itemName = "HaJaBaRaLa";
+        when(mockIO.readInputAsString()).thenReturn(itemName);
+        when(accountManager.currentUser()).thenReturn(anUserAccount);
+        checkoutOption.execute();
+
+        assertDoesNotThrow(()->verify(aLibrary).checkOut(itemName,anUserAccount));
     }
 }

@@ -2,6 +2,7 @@ package com.biblioteca;
 
 import com.biblioteca.account.IAccount;
 import com.biblioteca.exception.InvalidItemNameException;
+import com.biblioteca.exception.UserDoesNotMatchException;
 import com.biblioteca.items.LibraryItem;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class Library {
         checkedOutItems.put(searchedItem, accountSession);
     }
 
-    public void checkIn(String itemName, IAccount accountSession) throws InvalidItemNameException {
+    public void checkIn(String itemName, IAccount accountSession) throws InvalidItemNameException, UserDoesNotMatchException {
         LibraryItem searchedItem = searchCheckedOutItem(itemName, accountSession);
         checkedOutItems.remove(searchedItem);
         availableItems.add(searchedItem);
@@ -50,7 +51,7 @@ public class Library {
         throw new InvalidItemNameException();
     }
 
-    private LibraryItem searchCheckedOutItem(String itemName, IAccount accountSession) throws InvalidItemNameException{
+    private LibraryItem searchCheckedOutItem(String itemName, IAccount accountSession) throws InvalidItemNameException, UserDoesNotMatchException {
         for(LibraryItem eachItem: checkedOutItems.keySet()){
             String eachItemTitle = eachItem.title();
             if (eachItemTitle.equalsIgnoreCase(itemName)) {
@@ -58,6 +59,7 @@ public class Library {
                 if (account.equals(accountSession)) {
                     return eachItem;
                 }
+                throw new UserDoesNotMatchException();
             }
         }
         throw new InvalidItemNameException();

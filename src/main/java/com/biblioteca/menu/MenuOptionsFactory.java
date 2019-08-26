@@ -33,7 +33,7 @@ class MenuOptionsFactory {
 
         _options.put("2", DisplayAction.movieDisplayAction(anIOStream, aMovieLibrary));
 
-        _options.put("3", new LoginMenu(anIOStream, accountManager));
+        _options.put("3", new LoginAction(anIOStream, accountManager));
 
         return _options;
     }
