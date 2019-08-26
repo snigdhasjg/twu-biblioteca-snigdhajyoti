@@ -16,7 +16,6 @@ public class Menu {
     private static final String ACTION_DISPLAY_LINE = "\t\t\t%s. %s";
     private static final String QUIT = "quit";
 
-    private AccountType accountType;
     private final IO anIOStream;
     private final Library aBookLibrary;
     private final Library aMovieLibrary;
@@ -34,7 +33,11 @@ public class Menu {
         while (true) {
             Map<String, Actionable> options;
             if(accountManager.isLoggedIn()) {
-                options = MenuOptionsFactory.getMenuOptionAfterLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
+                if(accountManager.currentUser().getAccountType()==AccountType.customer) {
+                    options = MenuOptionsFactory.getMenuOptionForCustomerAfterLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
+                }else{
+                    options = MenuOptionsFactory.getMenuOptionForAdminAfterLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
+                }
             }else{
                 options = MenuOptionsFactory.getMenuOptionBeforeLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
             }

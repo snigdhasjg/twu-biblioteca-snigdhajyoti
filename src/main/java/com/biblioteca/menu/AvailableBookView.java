@@ -6,7 +6,7 @@ import com.biblioteca.items.LibraryItem;
 
 import java.util.List;
 
-class BookView implements View {
+class AvailableBookView implements View {
     private static final String BOOK_DETAILS_FORMAT = "%-20s %-20s %-4s";
     private static final String BOOK_NAME = "Book Name";
     private static final String AUTHOR = "Author";
@@ -14,7 +14,7 @@ class BookView implements View {
 
     private final IO io;
 
-    BookView(IO io) {
+    AvailableBookView(IO io) {
         this.io = io;
     }
 

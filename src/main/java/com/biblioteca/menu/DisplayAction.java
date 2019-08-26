@@ -21,11 +21,11 @@ class DisplayAction implements Actionable {
     }
 
     static DisplayAction bookDisplayAction(IO io, Library library) {
-        return new DisplayAction(io, library, new BookView(io));
+        return new DisplayAction(io, library, new AvailableBookView(io));
     }
 
     static DisplayAction movieDisplayAction(IO io, Library library) {
-        return new DisplayAction(io, library, new MovieView(io));
+        return new DisplayAction(io, library, new AvailableMovieView(io));
     }
 
     @Override
@@ -39,10 +39,10 @@ class DisplayAction implements Actionable {
     }
 
     private String  contentType() {
-        if(view instanceof BookView) {
+        if(view instanceof AvailableBookView) {
            return "book";
         }
-        if(view instanceof MovieView) {
+        if(view instanceof AvailableMovieView) {
             return "movie";
         }
         return null;

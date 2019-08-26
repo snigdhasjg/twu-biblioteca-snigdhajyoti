@@ -6,7 +6,7 @@ import com.biblioteca.items.Movie;
 
 import java.util.List;
 
-class MovieView implements View {
+class AvailableMovieView implements View {
     private static final String MOVIE_DETAILS_FORMAT = "%-20s %-20s %-20s %-7s";
     private static final String MOVIE_NAME = "Movie Name";
     private static final String DIRECTOR = "Director";
@@ -15,7 +15,7 @@ class MovieView implements View {
 
     private final IO io;
 
-    MovieView(IO io) {
+    AvailableMovieView(IO io) {
         this.io = io;
     }
 
