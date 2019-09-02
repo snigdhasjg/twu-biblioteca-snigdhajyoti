@@ -6,4 +6,6 @@ public interface IAccount {
     AccountType getAccountType();
 
     String getName();
+
+    String getLibraryNumber();
 }

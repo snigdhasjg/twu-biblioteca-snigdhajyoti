@@ -32,13 +32,13 @@ public class Menu {
         InvalidAction invalidAction = new InvalidAction(anIOStream);
         while (true) {
             Map<String, Actionable> options;
-            if(accountManager.isLoggedIn()) {
-                if(accountManager.currentUser().getAccountType()==AccountType.customer) {
+            if (accountManager.isLoggedIn()) {
+                if (accountManager.currentUser().getAccountType() == AccountType.customer) {
                     options = MenuOptionsFactory.getMenuOptionForCustomerAfterLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
-                }else{
+                } else {
                     options = MenuOptionsFactory.getMenuOptionForAdminAfterLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
                 }
-            }else{
+            } else {
                 options = MenuOptionsFactory.getMenuOptionBeforeLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
             }
             displayMenu(options);
@@ -54,7 +54,7 @@ public class Menu {
         anIOStream.displayWithNewLine(MENU_LINE);
 
         options.forEach((key, action) -> anIOStream.displayWithNewLine(
-                String.format(ACTION_DISPLAY_LINE,key,action.displayName())));
+                String.format(ACTION_DISPLAY_LINE, key, action.displayName())));
 
         anIOStream.displayWithNewLine("\t\t\t" + TYPE_QUIT_TO_EXIT);
         anIOStream.displayWithNewLine(DOTTED_LINE);

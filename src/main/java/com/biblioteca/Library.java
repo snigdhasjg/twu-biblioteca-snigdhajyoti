@@ -22,8 +22,13 @@ public class Library {
     }
 
     public List<LibraryItem> availableItems() {
-        return availableItems;
+        return new ArrayList<>(availableItems);
     }
+
+    public Map<LibraryItem, IAccount> checkedOutItems(){
+        return new HashMap<>(checkedOutItems);
+    }
+
 
     public void checkOut(String itemName, IAccount accountSession) throws InvalidItemNameException {
         LibraryItem searchedItem = searchAvailableItem(itemName);
@@ -39,6 +44,10 @@ public class Library {
 
     public boolean isEmpty() {
         return availableItems.size() == 0;
+    }
+
+    public boolean isFull(){
+        return checkedOutItems.isEmpty();
     }
 
     private LibraryItem searchAvailableItem(String itemName) throws InvalidItemNameException {

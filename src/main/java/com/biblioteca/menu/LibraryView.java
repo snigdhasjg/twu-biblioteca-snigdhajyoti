@@ -4,7 +4,7 @@ import com.biblioteca.items.LibraryItem;
 
 import java.util.List;
 
-public interface View {
+public interface LibraryView {
     String header();
 
     String details(LibraryItem item);

@@ -12,20 +12,20 @@ class DisplayAction implements Actionable {
 
     private final IO anIOStream;
     private final Library aLibrary;
-    private final View view;
+    private final LibraryView libraryView;
 
-    private DisplayAction(IO anIOStream, Library aLibrary, View view) {
+    private DisplayAction(IO anIOStream, Library aLibrary, LibraryView libraryView) {
         this.anIOStream = anIOStream;
         this.aLibrary = aLibrary;
-        this.view = view;
+        this.libraryView = libraryView;
     }
 
     static DisplayAction bookDisplayAction(IO io, Library library) {
-        return new DisplayAction(io, library, new AvailableBookView(io));
+        return new DisplayAction(io, library, new AvailableBookLibraryView(io));
     }
 
     static DisplayAction movieDisplayAction(IO io, Library library) {
-        return new DisplayAction(io, library, new AvailableMovieView(io));
+        return new DisplayAction(io, library, new AvailableMovieLibraryView(io));
     }
 
     @Override
@@ -35,14 +35,14 @@ class DisplayAction implements Actionable {
             return;
         }
         List<LibraryItem> availableItems = aLibrary.availableItems();
-        view.display(availableItems);
+        libraryView.display(availableItems);
     }
 
     private String  contentType() {
-        if(view instanceof AvailableBookView) {
+        if(libraryView instanceof AvailableBookLibraryView) {
            return "book";
         }
-        if(view instanceof AvailableMovieView) {
+        if(libraryView instanceof AvailableMovieLibraryView) {
             return "movie";
         }
         return null;

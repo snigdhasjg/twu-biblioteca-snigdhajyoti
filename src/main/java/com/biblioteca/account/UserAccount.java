@@ -1,7 +1,5 @@
 package com.biblioteca.account;
 
-import java.util.Objects;
-
 public class UserAccount implements IAccount {
     private final String libraryNumber;
     private final String password;
@@ -40,6 +38,11 @@ public class UserAccount implements IAccount {
     @Override
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public String getLibraryNumber() {
+        return this.libraryNumber;
     }
 
     @Override

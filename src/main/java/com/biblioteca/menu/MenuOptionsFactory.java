@@ -45,8 +45,10 @@ class MenuOptionsFactory {
         Map<String, Actionable> _options = new HashMap<>();
 
         _options.put("1", DisplayAction.bookDisplayAction(anIOStream, aBookLibrary));
+        _options.put("2", DisplayCheckedOutAction.book(anIOStream, aBookLibrary));
 
         _options.put("3", DisplayAction.movieDisplayAction(anIOStream, aMovieLibrary));
+        _options.put("4", DisplayCheckedOutAction.movie(anIOStream, aMovieLibrary));
 
         _options.put("5", new ProfileOption(anIOStream, accountManager));
         _options.put("6", new LogoutAction(anIOStream, accountManager));
