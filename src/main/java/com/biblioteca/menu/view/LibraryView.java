@@ -1,4 +1,4 @@
-package com.biblioteca.menu;
+package com.biblioteca.menu.view;
 
 import com.biblioteca.items.LibraryItem;
 

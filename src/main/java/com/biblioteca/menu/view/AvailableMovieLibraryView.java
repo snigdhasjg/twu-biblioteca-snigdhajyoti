@@ -1,4 +1,4 @@
-package com.biblioteca.menu;
+package com.biblioteca.menu.view;
 
 import com.biblioteca.io.IO;
 import com.biblioteca.items.LibraryItem;
@@ -6,7 +6,7 @@ import com.biblioteca.items.Movie;
 
 import java.util.List;
 
-class AvailableMovieLibraryView implements LibraryView {
+public class AvailableMovieLibraryView implements LibraryView {
     private static final String MOVIE_DETAILS_FORMAT = "%-20s %-20s %-20s %-7s";
     private static final String MOVIE_NAME = "Movie Name";
     private static final String DIRECTOR = "Director";
@@ -15,7 +15,7 @@ class AvailableMovieLibraryView implements LibraryView {
 
     private final IO io;
 
-    AvailableMovieLibraryView(IO io) {
+    public AvailableMovieLibraryView(IO io) {
         this.io = io;
     }
 

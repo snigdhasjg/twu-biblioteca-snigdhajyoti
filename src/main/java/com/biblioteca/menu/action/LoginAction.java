@@ -1,9 +1,9 @@
-package com.biblioteca.menu;
+package com.biblioteca.menu.action;
 
 import com.biblioteca.AccountManager;
 import com.biblioteca.io.IO;
 
-class LoginAction implements Actionable {
+public class LoginAction implements Actionable {
     private static final String LOG_IN = "Log In";
     private static final String WELCOME = "Welcome";
     private static final String WRONG_CREDENTIAL = "Credentials are wrong\nPlease try again";
@@ -13,7 +13,7 @@ class LoginAction implements Actionable {
     private final IO anIOStream;
     private final AccountManager accountManager;
 
-    LoginAction(IO anIOStream, AccountManager accountManager) {
+    public LoginAction(IO anIOStream, AccountManager accountManager) {
         this.anIOStream = anIOStream;
         this.accountManager = accountManager;
     }
@@ -21,7 +21,7 @@ class LoginAction implements Actionable {
     @Override
     public void execute() {
         int noOfAttempts = 3;
-        while(noOfAttempts-- > 0) {
+        while (noOfAttempts-- > 0) {
             anIOStream.display(LIBRARY_NUMBER);
             String libraryNo = anIOStream.readInputAsString();
             anIOStream.display(PASSWORD);
@@ -30,11 +30,11 @@ class LoginAction implements Actionable {
             accountManager.login(libraryNo, password);
             if (accountManager.isLoggedIn()) {
                 break;
-            }else{
+            } else {
                 anIOStream.displayWithNewLine(WRONG_CREDENTIAL);
             }
         }
-        if(accountManager.isLoggedIn()) {
+        if (accountManager.isLoggedIn()) {
             anIOStream.displayWithNewLine(WELCOME);
         }
     }

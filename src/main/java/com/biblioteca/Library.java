@@ -43,7 +43,7 @@ public class Library {
     }
 
     public boolean isEmpty() {
-        return availableItems.size() == 0;
+        return availableItems.isEmpty();
     }
 
     public boolean isFull(){

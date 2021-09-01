@@ -1,14 +1,14 @@
-package com.biblioteca.menu;
+package com.biblioteca.menu.action;
 
 import com.biblioteca.AccountManager;
 import com.biblioteca.io.IO;
 
-class LogoutAction implements Actionable{
+public class LogoutAction implements Actionable {
     private static final String LOG_OUT = "Log Out";
     private final IO anIOStream;
     private final AccountManager accountManager;
 
-    LogoutAction(IO anIOStream, AccountManager accountManager){
+    public LogoutAction(IO anIOStream, AccountManager accountManager) {
         this.anIOStream = anIOStream;
         this.accountManager = accountManager;
     }

@@ -1,4 +1,4 @@
-package com.biblioteca.menu;
+package com.biblioteca.menu.action;
 
 import com.biblioteca.AccountManager;
 import com.biblioteca.exception.InvalidItemNameException;
@@ -6,7 +6,7 @@ import com.biblioteca.Library;
 import com.biblioteca.exception.UserDoesNotMatchException;
 import com.biblioteca.io.IO;
 
-class CheckInAction implements Actionable {
+public class CheckInAction implements Actionable {
     private static final String RETURN = "Return ";
     private static final String ENTER_ITEM_NAME = "Enter %s name: ";
     private static final String UNSUCCESSFUL_RETURN = "That is not a valid %s to return";
@@ -18,7 +18,7 @@ class CheckInAction implements Actionable {
     private final String contentType;
     private final AccountManager accountManager;
 
-    CheckInAction(IO anIOStream, Library aLibrary, String contentType, AccountManager accountManager) {
+    public CheckInAction(IO anIOStream, Library aLibrary, String contentType, AccountManager accountManager) {
         this.anIOStream = anIOStream;
         this.aLibrary = aLibrary;
         this.contentType = contentType;

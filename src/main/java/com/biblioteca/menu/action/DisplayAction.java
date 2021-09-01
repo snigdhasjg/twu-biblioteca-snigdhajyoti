@@ -1,12 +1,15 @@
-package com.biblioteca.menu;
+package com.biblioteca.menu.action;
 
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
 import com.biblioteca.items.LibraryItem;
+import com.biblioteca.menu.view.AvailableBookLibraryView;
+import com.biblioteca.menu.view.AvailableMovieLibraryView;
+import com.biblioteca.menu.view.LibraryView;
 
 import java.util.List;
 
-class DisplayAction implements Actionable {
+public class DisplayAction implements Actionable {
     private static final String LIST_ALL = "List all %ss";
     private static final String EMPTY_LIBRARY = "Sorry! No %s in Library";
 
@@ -20,11 +23,11 @@ class DisplayAction implements Actionable {
         this.libraryView = libraryView;
     }
 
-    static DisplayAction bookDisplayAction(IO io, Library library) {
+    public static DisplayAction bookDisplayAction(IO io, Library library) {
         return new DisplayAction(io, library, new AvailableBookLibraryView(io));
     }
 
-    static DisplayAction movieDisplayAction(IO io, Library library) {
+    public static DisplayAction movieDisplayAction(IO io, Library library) {
         return new DisplayAction(io, library, new AvailableMovieLibraryView(io));
     }
 
@@ -38,11 +41,11 @@ class DisplayAction implements Actionable {
         libraryView.display(availableItems);
     }
 
-    private String  contentType() {
-        if(libraryView instanceof AvailableBookLibraryView) {
-           return "book";
+    private String contentType() {
+        if (libraryView instanceof AvailableBookLibraryView) {
+            return "book";
         }
-        if(libraryView instanceof AvailableMovieLibraryView) {
+        if (libraryView instanceof AvailableMovieLibraryView) {
             return "movie";
         }
         return null;

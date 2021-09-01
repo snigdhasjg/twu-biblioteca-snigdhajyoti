@@ -1,9 +1,12 @@
-package com.biblioteca.menu;
+package com.biblioteca.menu.action;
 
 import com.biblioteca.Library;
 import com.biblioteca.account.IAccount;
 import com.biblioteca.io.IO;
 import com.biblioteca.items.LibraryItem;
+import com.biblioteca.menu.view.CheckedOutBookLibraryView;
+import com.biblioteca.menu.view.CheckedOutMovieLibraryView;
+import com.biblioteca.menu.view.CheckedOutView;
 
 import java.util.Map;
 
@@ -20,12 +23,12 @@ public class DisplayCheckedOutAction implements Actionable {
         this.checkedOutView = checkedOutView;
     }
 
-    static DisplayCheckedOutAction movie(IO anIOStream, Library aLibrary){
-        return new DisplayCheckedOutAction(anIOStream,aLibrary, new CheckedOutMovieLibraryView(anIOStream));
+    public static DisplayCheckedOutAction movie(IO anIOStream, Library aLibrary) {
+        return new DisplayCheckedOutAction(anIOStream, aLibrary, new CheckedOutMovieLibraryView(anIOStream));
     }
 
-    static DisplayCheckedOutAction book(IO anIOStream, Library aLibrary){
-        return new DisplayCheckedOutAction(anIOStream,aLibrary, new CheckedOutBookLibraryView(anIOStream));
+    public static DisplayCheckedOutAction book(IO anIOStream, Library aLibrary) {
+        return new DisplayCheckedOutAction(anIOStream, aLibrary, new CheckedOutBookLibraryView(anIOStream));
     }
 
     @Override

@@ -1,10 +1,10 @@
-package com.biblioteca.menu;
+package com.biblioteca.menu.action;
 
+import com.biblioteca.Library;
 import com.biblioteca.exception.NotABookLibraryException;
 import com.biblioteca.exception.NotAMovieLibraryException;
-import com.biblioteca.items.Book;
-import com.biblioteca.Library;
 import com.biblioteca.io.IO;
+import com.biblioteca.items.Book;
 import com.biblioteca.items.Movie;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -12,8 +12,10 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 
 import static com.biblioteca.items.Movie.movie;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class DisplayActionTest {
 

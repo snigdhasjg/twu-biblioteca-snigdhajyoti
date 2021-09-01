@@ -4,6 +4,8 @@ import com.biblioteca.AccountManager;
 import com.biblioteca.Library;
 import com.biblioteca.account.AccountType;
 import com.biblioteca.io.IO;
+import com.biblioteca.menu.action.Actionable;
+import com.biblioteca.menu.action.InvalidAction;
 
 import java.util.Map;
 
@@ -17,15 +19,18 @@ public class Menu {
     private static final String QUIT = "quit";
 
     private final IO anIOStream;
-    private final Library aBookLibrary;
-    private final Library aMovieLibrary;
     private final AccountManager accountManager;
+
+    private final Map<String, Actionable> customerOptionAfterLogin;
+    private final Map<String, Actionable> optionBeforeLogin;
+    private final Map<String, Actionable> adminOptionAfterLogin;
 
     public Menu(IO anIOStream, Library aBookLibrary, Library aMovieLibrary, AccountManager accountManager) {
         this.anIOStream = anIOStream;
-        this.aBookLibrary = aBookLibrary;
-        this.aMovieLibrary = aMovieLibrary;
         this.accountManager = accountManager;
+        this.customerOptionAfterLogin = MenuOptionsFactory.getMenuOptionForCustomerAfterLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
+        this.optionBeforeLogin = MenuOptionsFactory.getMenuOptionBeforeLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
+        this.adminOptionAfterLogin = MenuOptionsFactory.getMenuOptionForAdminAfterLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
     }
 
     public void options() {
@@ -34,12 +39,12 @@ public class Menu {
             Map<String, Actionable> options;
             if (accountManager.isLoggedIn()) {
                 if (accountManager.currentUser().getAccountType() == AccountType.customer) {
-                    options = MenuOptionsFactory.getMenuOptionForCustomerAfterLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
+                    options = customerOptionAfterLogin;
                 } else {
-                    options = MenuOptionsFactory.getMenuOptionForAdminAfterLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
+                    options = adminOptionAfterLogin;
                 }
             } else {
-                options = MenuOptionsFactory.getMenuOptionBeforeLogin(anIOStream, aBookLibrary, aMovieLibrary, accountManager);
+                options = optionBeforeLogin;
             }
             displayMenu(options);
             String inputOption = anIOStream.readInputAsString().trim();

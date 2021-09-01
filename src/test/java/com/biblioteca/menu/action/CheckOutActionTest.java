@@ -1,11 +1,10 @@
-package com.biblioteca.menu;
+package com.biblioteca.menu.action;
 
 import com.biblioteca.AccountManager;
-import com.biblioteca.account.IAccount;
-import com.biblioteca.exception.InvalidItemNameException;
-import com.biblioteca.items.Book;
 import com.biblioteca.Library;
+import com.biblioteca.account.IAccount;
 import com.biblioteca.io.IO;
+import com.biblioteca.items.Book;
 import com.biblioteca.items.Movie;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -13,10 +12,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
-import static com.biblioteca.items.Book.*;
+import static com.biblioteca.items.Book.book;
 import static com.biblioteca.items.Movie.movie;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class CheckOutActionTest {
 

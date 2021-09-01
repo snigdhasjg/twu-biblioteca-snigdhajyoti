@@ -1,11 +1,11 @@
-package com.biblioteca.menu;
+package com.biblioteca.menu.action;
 
 import com.biblioteca.AccountManager;
 import com.biblioteca.exception.InvalidItemNameException;
 import com.biblioteca.Library;
 import com.biblioteca.io.IO;
 
-class CheckOutAction implements Actionable {
+public class CheckOutAction implements Actionable {
     private static final String CHECKOUT = "Checkout ";
     private static final String ENTER_ITEM_NAME = "Enter %s name: ";
     private static final String EMPTY_LIBRARY = "Sorry! No %s in Library";
@@ -17,7 +17,7 @@ class CheckOutAction implements Actionable {
     private final String contentType;
     private final AccountManager accountManager;
 
-    CheckOutAction(IO anIOStream, Library aLibrary, String contentType, AccountManager accountManager) {
+    public CheckOutAction(IO anIOStream, Library aLibrary, String contentType, AccountManager accountManager) {
         this.anIOStream = anIOStream;
         this.aLibrary = aLibrary;
         this.contentType = contentType;

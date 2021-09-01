@@ -1,4 +1,4 @@
-package com.biblioteca.menu;
+package com.biblioteca.menu.view;
 
 import com.biblioteca.io.IO;
 import com.biblioteca.items.Book;
@@ -6,7 +6,7 @@ import com.biblioteca.items.LibraryItem;
 
 import java.util.List;
 
-class AvailableBookLibraryView implements LibraryView {
+public class AvailableBookLibraryView implements LibraryView {
     private static final String BOOK_DETAILS_FORMAT = "%-20s %-20s %-4s";
     private static final String BOOK_NAME = "Book Name";
     private static final String AUTHOR = "Author";
@@ -14,7 +14,7 @@ class AvailableBookLibraryView implements LibraryView {
 
     private final IO io;
 
-    AvailableBookLibraryView(IO io) {
+    public AvailableBookLibraryView(IO io) {
         this.io = io;
     }
 
