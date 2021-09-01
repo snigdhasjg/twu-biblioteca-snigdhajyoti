@@ -11,7 +11,7 @@ public class AvailableBookLibraryView implements LibraryView {
     private static final String BOOK_NAME = "Book Name";
     private static final String AUTHOR = "Author";
     private static final String PUBLICATION_YEAR = "Year";
-    private static final String BOOK = "Book";
+    private static final String BOOK = "book";
 
     private final IO io;
 

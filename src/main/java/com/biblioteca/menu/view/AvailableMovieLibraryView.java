@@ -12,7 +12,7 @@ public class AvailableMovieLibraryView implements LibraryView {
     private static final String DIRECTOR = "Director";
     private static final String YEAR = "Year";
     private static final String RATING = "Rating";
-    private static final String MOVIE = "Movie";
+    private static final String MOVIE = "movie";
 
     private final IO io;
 

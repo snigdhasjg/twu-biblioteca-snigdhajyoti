@@ -2,6 +2,7 @@ package com.biblioteca.menu;
 
 import com.biblioteca.AccountManager;
 import com.biblioteca.Library;
+import com.biblioteca.account.AccountType;
 import com.biblioteca.account.IAccount;
 import com.biblioteca.io.IO;
 import com.biblioteca.items.Book;
@@ -74,7 +75,9 @@ class MenuTest {
         Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary(), accountManager);
 
         when(mockIO.readInputAsString()).thenReturn("1", "quit");
-        when(accountManager.isLoggedIn()).thenReturn(true);
+        IAccount mockAccount = mock(IAccount.class);
+        when(mockAccount.getAccountType()).thenReturn(AccountType.customer);
+        when(accountManager.currentUser()).thenReturn(mockAccount);
         aMenu.options();
 
         final int wantedNumberOfInvocations = 2;
@@ -100,7 +103,9 @@ class MenuTest {
         when(mockIO.readInputAsString()).thenReturn("1", "quit");
         aMenu.options();
 
-        when(accountManager.isLoggedIn()).thenReturn(true);
+        IAccount mockAccount = mock(IAccount.class);
+        when(mockAccount.getAccountType()).thenReturn(AccountType.customer);
+        when(accountManager.currentUser()).thenReturn(mockAccount);
         when(mockIO.readInputAsString()).thenReturn("1", "quit");
         aMenu.options();
 
@@ -123,6 +128,9 @@ class MenuTest {
         Menu aMenu = new Menu(mockIO, initializeTheBookLibrary(), initializeTheMovieLibrary(), accountManager);
 
         when(accountManager.isLoggedIn()).thenReturn(true);
+        IAccount mockAccount = mock(IAccount.class);
+        when(mockAccount.getAccountType()).thenReturn(AccountType.customer);
+        when(accountManager.currentUser()).thenReturn(mockAccount);
         when(mockIO.readInputAsString()).thenReturn("1", "2", "gitanjali", "1", "quit");
         aMenu.options();
 
@@ -159,6 +167,9 @@ class MenuTest {
         Menu aMenu = new Menu(mockIO, new Library(Collections.EMPTY_LIST), initializeTheMovieLibrary(), accountManager);
 
         when(accountManager.isLoggedIn()).thenReturn(true);
+        IAccount mockAccount = mock(IAccount.class);
+        when(mockAccount.getAccountType()).thenReturn(AccountType.customer);
+        when(accountManager.currentUser()).thenReturn(mockAccount);
         when(mockIO.readInputAsString()).thenReturn("2", "quit");
         aMenu.options();
 
