@@ -32,7 +32,7 @@ class DisplayActionTest {
         }
 
         @Test
-        void expectsEmptyLibraryMessageWhenLibraryIsEmpty() throws NotABookLibraryException, NotAMovieLibraryException {
+        void expectsEmptyLibraryMessageWhenLibraryIsEmpty() {
             IO mockIO = mock(IO.class);
             Library mockLibrary = mock(Library.class);
             Actionable listOption = DisplayAction.bookDisplayAction(mockIO, mockLibrary);
@@ -44,7 +44,7 @@ class DisplayActionTest {
         }
 
         @Test
-        void expectsListOfBooksWhenLibraryNotEmpty() throws NotABookLibraryException, NotAMovieLibraryException {
+        void expectsListOfBooksWhenLibraryNotEmpty() {
             IO mockIO = mock(IO.class);
             Book aBook = Book.book("HaJaBaRaLa", "Sukumar Roy", 1921);
             Library aLibrary = new Library(Collections.singletonList(aBook));

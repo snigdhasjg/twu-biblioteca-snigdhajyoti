@@ -34,26 +34,16 @@ public class DisplayAction implements Actionable {
     @Override
     public void execute() {
         if (aLibrary.isEmpty()) {
-            anIOStream.displayWithNewLine(String.format(EMPTY_LIBRARY, contentType()));
+            anIOStream.displayWithNewLine(String.format(EMPTY_LIBRARY, libraryView.contentType()));
             return;
         }
         List<LibraryItem> availableItems = aLibrary.availableItems();
         libraryView.display(availableItems);
     }
 
-    private String contentType() {
-        if (libraryView instanceof AvailableBookLibraryView) {
-            return "book";
-        }
-        if (libraryView instanceof AvailableMovieLibraryView) {
-            return "movie";
-        }
-        return null;
-    }
-
     @Override
     public String displayName() {
-        return String.format(LIST_ALL, contentType());
+        return String.format(LIST_ALL, libraryView.contentType());
     }
 
 }

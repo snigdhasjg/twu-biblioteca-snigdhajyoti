@@ -12,6 +12,7 @@ public class AvailableMovieLibraryView implements LibraryView {
     private static final String DIRECTOR = "Director";
     private static final String YEAR = "Year";
     private static final String RATING = "Rating";
+    private static final String MOVIE = "Movie";
 
     private final IO io;
 
@@ -19,19 +20,28 @@ public class AvailableMovieLibraryView implements LibraryView {
         this.io = io;
     }
 
+    @Override
     public String header() {
         return String.format(MOVIE_DETAILS_FORMAT, MOVIE_NAME, DIRECTOR, YEAR, RATING);
     }
 
+    @Override
     public String details(LibraryItem item) {
         Movie aMovie = (Movie) item;
         return String.format(MOVIE_DETAILS_FORMAT, aMovie.title(), aMovie.director(), aMovie.year(), aMovie.rating());
     }
 
+    @Override
     public Integer length() {
         return 70;
     }
 
+    @Override
+    public String contentType() {
+        return MOVIE;
+    }
+
+    @Override
     public void display(List<LibraryItem> items) {
         io.displayWithNewLine(header());
         io.horizontalLine(length());

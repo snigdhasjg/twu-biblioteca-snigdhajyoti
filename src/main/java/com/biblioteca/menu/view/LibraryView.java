@@ -11,5 +11,7 @@ public interface LibraryView {
 
     Integer length();
 
+    String contentType();
+
     void display(List<LibraryItem> items);
 }
