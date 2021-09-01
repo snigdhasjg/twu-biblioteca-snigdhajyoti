@@ -32,7 +32,7 @@ public class CheckedOutBookLibraryView implements CheckedOutView {
 
     @Override
     public Integer length() {
-        return 46;
+        return 57;
     }
 
     @Override

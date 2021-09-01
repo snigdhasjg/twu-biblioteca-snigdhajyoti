@@ -6,14 +6,14 @@ public class Book implements LibraryItem {
     private final String author;
     private final int yearOfPublication;
 
-    public static Book book(String name, String author, int yearOfPublication) {
-        return new Book(name, author, yearOfPublication);
-    }
-
     private Book(String name, String author, int yearOfPublication) {
         this.name = name;
         this.author = author;
         this.yearOfPublication = yearOfPublication;
+    }
+
+    public static Book book(String name, String author, int yearOfPublication) {
+        return new Book(name, author, yearOfPublication);
     }
 
     @Override

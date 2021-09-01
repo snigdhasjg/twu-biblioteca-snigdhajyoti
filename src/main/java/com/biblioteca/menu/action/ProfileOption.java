@@ -3,14 +3,13 @@ package com.biblioteca.menu.action;
 import com.biblioteca.AccountManager;
 import com.biblioteca.account.IAccount;
 import com.biblioteca.io.IO;
-import com.biblioteca.menu.action.Actionable;
 
 public class ProfileOption implements Actionable {
     private static final String PROFILE = "Profile";
     private final IO anIOStream;
     private final AccountManager accountManager;
 
-    public ProfileOption(IO anIOStream, AccountManager accountManager){
+    public ProfileOption(IO anIOStream, AccountManager accountManager) {
         this.anIOStream = anIOStream;
         this.accountManager = accountManager;
     }

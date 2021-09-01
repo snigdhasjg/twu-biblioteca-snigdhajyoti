@@ -1,8 +1,8 @@
 package com.biblioteca.menu.action;
 
 import com.biblioteca.AccountManager;
-import com.biblioteca.exception.InvalidItemNameException;
 import com.biblioteca.Library;
+import com.biblioteca.exception.InvalidItemNameException;
 import com.biblioteca.io.IO;
 
 public class CheckOutAction implements Actionable {

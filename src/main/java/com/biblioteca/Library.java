@@ -13,8 +13,8 @@ import java.util.Map;
 // Represents a place which have all items in it
 public class Library {
 
-    private List<LibraryItem> availableItems;
-    private Map<LibraryItem, IAccount> checkedOutItems;
+    private final List<LibraryItem> availableItems;
+    private final Map<LibraryItem, IAccount> checkedOutItems;
 
     public Library(List<LibraryItem> listOfItems) {
         this.availableItems = new ArrayList<>(listOfItems);
@@ -25,7 +25,7 @@ public class Library {
         return new ArrayList<>(availableItems);
     }
 
-    public Map<LibraryItem, IAccount> checkedOutItems(){
+    public Map<LibraryItem, IAccount> checkedOutItems() {
         return new HashMap<>(checkedOutItems);
     }
 
@@ -46,7 +46,7 @@ public class Library {
         return availableItems.isEmpty();
     }
 
-    public boolean isFull(){
+    public boolean isFull() {
         return checkedOutItems.isEmpty();
     }
 
@@ -61,7 +61,7 @@ public class Library {
     }
 
     private LibraryItem searchCheckedOutItem(String itemName, IAccount accountSession) throws InvalidItemNameException, UserDoesNotMatchException {
-        for(LibraryItem eachItem: checkedOutItems.keySet()){
+        for (LibraryItem eachItem : checkedOutItems.keySet()) {
             String eachItemTitle = eachItem.title();
             if (eachItemTitle.equalsIgnoreCase(itemName)) {
                 IAccount account = checkedOutItems.get(eachItem);

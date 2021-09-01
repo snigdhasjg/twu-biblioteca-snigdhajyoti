@@ -34,9 +34,8 @@ public class ConsoleIO implements IO {
     }
 
     @Override
-    public String horizontalLine(Integer length) {
+    public void horizontalLine(Integer length) {
         String dashedLine = new String(new char[length]).replace("\0", "-");
         outputStream.println(dashedLine);
-        return "";
     }
 }

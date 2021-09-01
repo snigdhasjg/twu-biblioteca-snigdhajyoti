@@ -1,8 +1,8 @@
 package com.biblioteca.menu.action;
 
 import com.biblioteca.AccountManager;
-import com.biblioteca.exception.InvalidItemNameException;
 import com.biblioteca.Library;
+import com.biblioteca.exception.InvalidItemNameException;
 import com.biblioteca.exception.UserDoesNotMatchException;
 import com.biblioteca.io.IO;
 
@@ -34,7 +34,7 @@ public class CheckInAction implements Actionable {
             anIOStream.displayWithNewLine(String.format(SUCCESSFUL_RETURN, contentType));
         } catch (InvalidItemNameException exception) {
             anIOStream.displayWithNewLine(String.format(UNSUCCESSFUL_RETURN, contentType));
-        } catch (UserDoesNotMatchException exception){
+        } catch (UserDoesNotMatchException exception) {
             anIOStream.displayWithNewLine(String.format(USER_MISMATCH, contentType));
         }
     }

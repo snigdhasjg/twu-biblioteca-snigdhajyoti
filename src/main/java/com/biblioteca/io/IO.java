@@ -2,9 +2,12 @@ package com.biblioteca.io;
 
 public interface IO {
     void displayWithNewLine(String message);
+
     void display(String message);
+
     String readInputAsString();
+
     int readInputAsNumber();
 
-    String horizontalLine(Integer length);
+    void horizontalLine(Integer length);
 }

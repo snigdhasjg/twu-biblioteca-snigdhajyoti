@@ -17,12 +17,12 @@ public class UserAccount implements IAccount {
         this.accountType = accountType;
     }
 
-    public static UserAccount customer(String libraryNumber, String password, String name, String email, String phoneNumber){
-        return new UserAccount(libraryNumber,password,name,email,phoneNumber, AccountType.customer);
+    public static UserAccount customer(String libraryNumber, String password, String name, String email, String phoneNumber) {
+        return new UserAccount(libraryNumber, password, name, email, phoneNumber, AccountType.customer);
     }
 
-    public static UserAccount librarian(String libraryNumber, String password, String name, String email, String phoneNumber){
-        return new UserAccount(libraryNumber,password,name,email,phoneNumber, AccountType.librarian);
+    public static UserAccount librarian(String libraryNumber, String password, String name, String email, String phoneNumber) {
+        return new UserAccount(libraryNumber, password, name, email, phoneNumber, AccountType.librarian);
     }
 
     @Override

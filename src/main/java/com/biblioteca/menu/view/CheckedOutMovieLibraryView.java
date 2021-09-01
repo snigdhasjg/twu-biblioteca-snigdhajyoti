@@ -15,24 +15,24 @@ public class CheckedOutMovieLibraryView implements CheckedOutView {
 
     private final IO io;
 
-    public CheckedOutMovieLibraryView(IO io){
+    public CheckedOutMovieLibraryView(IO io) {
         this.io = io;
     }
 
     @Override
     public String header() {
-        return String.format(CHECKED_OUT_MOVIE_HEADER, MOVIE_NAME,USER_NAME,LIBRARY_NUMBER);
+        return String.format(CHECKED_OUT_MOVIE_HEADER, MOVIE_NAME, USER_NAME, LIBRARY_NUMBER);
     }
 
     @Override
     public String details(LibraryItem item, IAccount anAccount) {
         Movie aMovie = (Movie) item;
-        return String.format(CHECKED_OUT_MOVIE_HEADER,aMovie.title(),anAccount.getName(),anAccount.getLibraryNumber());
+        return String.format(CHECKED_OUT_MOVIE_HEADER, aMovie.title(), anAccount.getName(), anAccount.getLibraryNumber());
     }
 
     @Override
     public Integer length() {
-        return 46;
+        return 57;
     }
 
     @Override
