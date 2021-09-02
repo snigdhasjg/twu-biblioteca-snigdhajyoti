@@ -1,17 +1,30 @@
 package com.biblioteca.menu.view;
 
+import com.biblioteca.io.IO;
 import com.biblioteca.items.LibraryItem;
 
 import java.util.List;
 
-public interface LibraryView {
-    String header();
+public abstract class LibraryView {
+    private final IO io;
 
-    String details(LibraryItem item);
+    public LibraryView(IO io) {
+        this.io = io;
+    }
 
-    Integer length();
+    public void display(List<LibraryItem> items) {
+        io.displayWithNewLine(header());
+        io.horizontalLine(length());
+        items.forEach(
+                item -> io.displayWithNewLine(details(item))
+        );
+    }
 
-    String contentType();
+    public abstract String contentType();
 
-    void display(List<LibraryItem> items);
+    protected abstract String header();
+
+    protected abstract String details(LibraryItem item);
+
+    protected abstract Integer length();
 }

@@ -8,7 +8,7 @@ public class AccountManager {
     private final List<IAccount> allAccounts;
     private IAccount currentSession;
 
-    AccountManager(List<IAccount> allAccounts) {
+    public AccountManager(List<IAccount> allAccounts) {
         this.allAccounts = allAccounts;
     }
 

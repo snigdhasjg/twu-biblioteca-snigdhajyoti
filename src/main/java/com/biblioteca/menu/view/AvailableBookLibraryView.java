@@ -6,33 +6,15 @@ import com.biblioteca.items.LibraryItem;
 
 import java.util.List;
 
-public class AvailableBookLibraryView implements LibraryView {
+public class AvailableBookLibraryView extends LibraryView {
     private static final String BOOK_DETAILS_FORMAT = "%-20s %-20s %-4s";
     private static final String BOOK_NAME = "Book Name";
     private static final String AUTHOR = "Author";
     private static final String PUBLICATION_YEAR = "Year";
     private static final String BOOK = "book";
 
-    private final IO io;
-
     public AvailableBookLibraryView(IO io) {
-        this.io = io;
-    }
-
-    @Override
-    public String header() {
-        return String.format(BOOK_DETAILS_FORMAT, BOOK_NAME, AUTHOR, PUBLICATION_YEAR);
-    }
-
-    @Override
-    public String details(LibraryItem item) {
-        Book aBook = (Book) item;
-        return String.format(BOOK_DETAILS_FORMAT, aBook.title(), aBook.author(), aBook.year());
-    }
-
-    @Override
-    public Integer length() {
-        return 46;
+        super(io);
     }
 
     @Override
@@ -41,12 +23,18 @@ public class AvailableBookLibraryView implements LibraryView {
     }
 
     @Override
-    public void display(List<LibraryItem> items) {
-        io.displayWithNewLine(header());
-        io.horizontalLine(length());
-        for (LibraryItem item : items) {
-            String details = details(item);
-            io.displayWithNewLine(details);
-        }
+    protected String header() {
+        return String.format(BOOK_DETAILS_FORMAT, BOOK_NAME, AUTHOR, PUBLICATION_YEAR);
+    }
+
+    @Override
+    protected String details(LibraryItem item) {
+        Book aBook = (Book) item;
+        return String.format(BOOK_DETAILS_FORMAT, aBook.title(), aBook.author(), aBook.year());
+    }
+
+    @Override
+    protected Integer length() {
+        return 46;
     }
 }

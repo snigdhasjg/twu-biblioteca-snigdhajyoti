@@ -1,16 +1,29 @@
 package com.biblioteca.menu.view;
 
 import com.biblioteca.account.IAccount;
+import com.biblioteca.io.IO;
 import com.biblioteca.items.LibraryItem;
 
 import java.util.Map;
 
-public interface CheckedOutView {
-    String header();
+public abstract class CheckedOutView {
+    private final IO io;
 
-    String details(LibraryItem item, IAccount anAccount);
+    public CheckedOutView(IO io) {
+        this.io = io;
+    }
 
-    Integer length();
+    public final void display(Map<LibraryItem, IAccount> items) {
+        io.displayWithNewLine(header());
+        io.horizontalLine(length());
+        items.forEach(
+                (key, value) -> io.displayWithNewLine(details(key, value))
+        );
+    }
 
-    void display(Map<LibraryItem, IAccount> items);
+    protected abstract String header();
+
+    protected abstract String details(LibraryItem item, IAccount anAccount);
+
+    protected abstract Integer length();
 }
